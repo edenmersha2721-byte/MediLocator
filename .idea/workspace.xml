@@ -5,15 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa3d37d5-9c86-433d-8171-e62d2339e352" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/handler/EmailVerificationHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/handler/LoginHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/handler/LogoutHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/handler/PasswordResetHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/handler/RefreshTokenHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/handler/RegisterCustomerHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/handler/RegisterPharmacyHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/mapper/AuthMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/query/handler/GetCurrentUserHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/infrastructure/persistence/entity/AdminEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/infrastructure/persistence/entity/CustomerEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/infrastructure/persistence/entity/PharmacyEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/infrastructure/persistence/entity/RefreshTokenEntity.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
