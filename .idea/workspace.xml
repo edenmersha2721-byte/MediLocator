@@ -5,32 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa3d37d5-9c86-433d-8171-e62d2339e352" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/auth/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/ForgotPasswordCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/LoginCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/LogoutCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/RefreshTokenCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/RegisterCustomerCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/RegisterPharmacyCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/ResetPasswordCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/VerifyEmailCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/dto/request/CustomerRegisterRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/dto/request/ForgotPasswordRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/dto/request/LoginRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/dto/request/PharmacyRegisterRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/dto/request/ResetPasswordRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/dto/response/AuthResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/dto/response/MessageResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/dto/response/UserProfileResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/query/GetCurrentUserQuery.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/service/AdminService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/service/CustomerService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/service/PharmacyService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/service/TokenService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/auth/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/AuthApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/AuthApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/main/resources/application.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/handler/EmailVerificationHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/handler/LoginHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/handler/LogoutHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/handler/PasswordResetHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/handler/RefreshTokenHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/handler/RegisterCustomerHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/handler/RegisterPharmacyHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/mapper/AuthMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/query/handler/GetCurrentUserHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
