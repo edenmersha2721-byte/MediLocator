@@ -5,23 +5,40 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa3d37d5-9c86-433d-8171-e62d2339e352" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/inventory/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/domain/enums/MedicineCategory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/domain/enums/PrescriptionRequired.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/domain/exception/AccessDeniedException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/domain/exception/CategoryNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/domain/exception/DuplicateInventoryException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/domain/exception/InsufficientStockException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/domain/exception/InventoryNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/domain/exception/MedicineNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/domain/model/InventoryItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/domain/model/Medicine.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/domain/model/MedicineCategoryDomain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/domain/model/PharmacyInventory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/inventory/src/main/resources/schema.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/command/AddInventoryCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/command/AddMedicineCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/command/CreateCategoryCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/command/DeductStockCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/command/RemoveMedicineCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/command/UpdateCategoryCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/command/UpdateMedicineCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/command/UpdateStockCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/command/handler/AddMedicineHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/command/handler/DeductStockHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/command/handler/RemoveMedicineHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/command/handler/UpdateMedicineHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/command/handler/UpdateStockHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/dto/request/AddInventoryRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/dto/request/AddMedicineRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/dto/request/CreateCategoryRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/dto/request/UpdateCategoryRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/dto/request/UpdateMedicineRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/dto/request/UpdateStockRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/dto/response/CategoryResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/dto/response/InventoryItemResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/dto/response/MedicineAvailabilityResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/dto/response/MedicineResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/dto/response/MessageResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/dto/response/PagedResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/dto/response/PharmacyInventoryResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/query/GetAllCategoriesQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/query/GetAvailableMedicinesQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/query/GetMedicineByIdQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/query/GetPharmacyInventoryQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/query/SearchMedicinesQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/service/CategoryService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/service/MedicineService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/application/service/PharmacyInventoryService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
