@@ -6,7 +6,9 @@ spring:
     name: inventory-service
 
   datasource:
+    # 🔄 Localhost testing URL with production Docker URL commented out below
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/medicine_locator_db}
+    # url: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
     username: ${SPRING_DATASOURCE_USERNAME:medicine_user}
     password: ${SPRING_DATASOURCE_PASSWORD:medicine_pass}
     driver-class-name: org.postgresql.Driver
@@ -19,7 +21,9 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: validate
+      # 🔄 Temporarily changed to update so tables are generated on localhost if they don't exist yet
+      ddl-auto: update
+      # ddl-auto: validate
     show-sql: false
     properties:
       hibernate:
@@ -50,6 +54,13 @@ management:
   endpoint:
     health:
       show-details: when-authorized
+  # 👇 Added local decoupling switches to stop background check verification crashes
+  health:
+    redis:
+      enabled: false          # Disable standard indicator
+    reactive:
+      redis:
+        enabled: false        # Disable reactive background database indicator
 
 inventory:
   cache:
