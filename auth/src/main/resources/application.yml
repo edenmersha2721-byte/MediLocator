@@ -6,7 +6,9 @@ spring:
     name: auth-service
 
   datasource:
+    # 🔄 Localhost testing URL with production Docker URL commented out below
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/medicine_locator_db}
+    # url: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
     username: ${SPRING_DATASOURCE_USERNAME:medicine_user}
     password: ${SPRING_DATASOURCE_PASSWORD:medicine_pass}
     driver-class-name: org.postgresql.Driver
@@ -19,6 +21,7 @@ spring:
 
   jpa:
     hibernate:
+      # Use update/validate safely depending on whether your schema is fully loaded yet
       ddl-auto: validate
     show-sql: false
     properties:
@@ -50,8 +53,9 @@ spring:
   mail:
     host: ${SPRING_MAIL_HOST:smtp.gmail.com}
     port: ${SPRING_MAIL_PORT:587}
-    username: ${SPRING_MAIL_USERNAME}
-    password: ${SPRING_MAIL_PASSWORD}
+    # 🔄 Provided standard developer placeholder strings so context initialization won't fail
+    username: ${SPRING_MAIL_USERNAME:dev-testing-email@gmail.com}
+    password: ${SPRING_MAIL_PASSWORD:dev-testing-app-password}
     properties:
       mail:
         smtp:
@@ -64,7 +68,8 @@ spring:
           writetimeout: 5000
 
 jwt:
-  secret: ${JWT_SECRET}
+  # 🔄 Added a standard local 256-bit fallback key below to prevent validation failures at boot time
+  secret: ${JWT_SECRET:change_me_at_least_64_chars_long_secret_key_for_hs512_algorithm_here}
   access-token-expiration: ${JWT_ACCESS_TOKEN_EXPIRATION:900000}
   refresh-token-expiration: ${JWT_REFRESH_TOKEN_EXPIRATION:604800000}
 
@@ -81,6 +86,15 @@ management:
   endpoint:
     health:
       show-details: when-authorized
+  # 👇 Added health indicator bypass switches to prevent context failures when background services are offline
+  health:
+    redis:
+      enabled: false          # Disable standard indicator
+    mail:
+      enabled: false          # Disable mail health check indicator
+    reactive:
+      redis:
+        enabled: false        # Disable reactive background data indicator
 
 logging:
   level:
