@@ -1,0 +1,23 @@
+package com.medicinelocator.inventory.domain.enums;
+
+public enum MedicineCategory {
+    ANALGESIC,
+    ANTIBIOTIC,
+    ANTIVIRAL,
+    ANTIFUNGAL,
+    ANTIHISTAMINE,
+    ANTIHYPERTENSIVE,
+    ANTIDIABETIC,
+    CARDIOVASCULAR,
+    DERMATOLOGICAL,
+    GASTROINTESTINAL,
+    HORMONAL,
+    NEUROLOGICAL,
+    ONCOLOGICAL,
+    OPHTHALMOLOGICAL,
+    PSYCHIATRIC,
+    RESPIRATORY,
+    SUPPLEMENT,
+    VACCINE,
+    OTHER
+}
