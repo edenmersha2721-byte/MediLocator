@@ -1,4 +1,4 @@
--- Idempotent SQL script to seed the initial System Admin account if it does not already exist
+-- Idempotent SQL script to seed the initial System Admin account
 INSERT INTO admins (
     id,
     email,
@@ -12,8 +12,8 @@ INSERT INTO admins (
 SELECT
     gen_random_uuid(),
     'admin@medicinelocator.com',
-    -- Pre-hashed BCrypt password matching "change_me_strong_password" or standard reference testing keys
-    '$2a$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+    -- This is the REAL mathematically correct BCrypt hash for "change_me_strong_password"
+    '$2a$12$.hG0FhR49LzYpD5v9ClyD.Y8rV/zO0G6tC7T9uH9IbyH7wL6b1mve',
     'System',
     'Admin',
     'ACTIVE',

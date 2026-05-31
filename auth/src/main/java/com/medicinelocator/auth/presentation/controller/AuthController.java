@@ -97,6 +97,7 @@ public class AuthController {
     @GetMapping("/verify-email")
     public ResponseEntity<MessageResponse> verifyEmail(@RequestParam String token) {
         emailVerificationHandler.handle(new VerifyEmailCommand(token));
+        System.out.println("TOKEN = " + token);
         return ResponseEntity.ok(new MessageResponse("Email verified successfully. You can now log in."));
     }
 
