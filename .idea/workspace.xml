@@ -5,15 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa3d37d5-9c86-433d-8171-e62d2339e352" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/infrastructure/debug/RedisDebugController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/handler/RegisterCustomerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/handler/RegisterCustomerHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/handler/RegisterPharmacyHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/handler/RegisterPharmacyHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/service/EmailService.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/service/EmailService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/domain/model/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/domain/model/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/domain/model/Pharmacy.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/domain/model/Pharmacy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/infrastructure/persistence/repository/CustomerRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/infrastructure/persistence/repository/CustomerRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/infrastructure/persistence/repository/PharmacyRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/infrastructure/persistence/repository/PharmacyRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/infrastructure/security/JwtTokenService.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/infrastructure/security/JwtTokenService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/auth/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,6 +53,7 @@
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Administrator/Documents/medicine-locator&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>

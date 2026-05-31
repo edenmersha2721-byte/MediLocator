@@ -73,7 +73,7 @@ spring:
           writetimeout: 10000
 
 jwt:
-  secret: ${JWT_SECRET:change_me_at_least_64_chars_long_secret_key_for_hs512_algorithm_here}
+  secret: Y2hhbmdlX21lX2F0X2xlYXN0XzY0X2NoYXJzX2xvbmdfc2VjcmV0X2tleV9mb3JfaHM1MTJfYWxnb3JpdGhtX2hlcmU=
   access-token-expiration: ${JWT_ACCESS_TOKEN_EXPIRATION:900000}
   refresh-token-expiration: ${JWT_REFRESH_TOKEN_EXPIRATION:604800000}
 

@@ -129,6 +129,8 @@ public class JwtTokenService implements TokenService {
     }
 
     private SecretKey getSigningKey() {
+        System.out.println("JWT Secret from Spring: " + jwtProperties.getSecret());
         return Keys.hmacShaKeyFor(Base64.getDecoder().decode(jwtProperties.getSecret()));
+
     }
 }
