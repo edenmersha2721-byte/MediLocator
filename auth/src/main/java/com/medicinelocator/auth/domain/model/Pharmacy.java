@@ -3,12 +3,16 @@ package com.medicinelocator.auth.domain.model;
 import com.medicinelocator.auth.domain.enums.AccountStatus;
 import com.medicinelocator.auth.domain.enums.PharmacyStatus;
 import com.medicinelocator.auth.domain.enums.Role;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class Pharmacy {
-
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
     private String email;
     private String passwordHash;

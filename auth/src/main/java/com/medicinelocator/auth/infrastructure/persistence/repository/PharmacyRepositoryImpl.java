@@ -50,7 +50,7 @@ public class PharmacyRepositoryImpl implements PharmacyService {
 
     private PharmacyEntity toEntity(Pharmacy pharmacy) {
         PharmacyEntity entity = new PharmacyEntity();
-        entity.setId(pharmacy.getId());
+//        entity.setId(pharmacy.getId());
         entity.setEmail(pharmacy.getEmail());
         entity.setPasswordHash(pharmacy.getPasswordHash());
         entity.setPharmacyName(pharmacy.getPharmacyName());

@@ -7,4 +7,5 @@ public interface EmailService {
     void sendPasswordReset(String to, String token);
 
     void sendWelcomeEmail(String to, String name);
+
 }

@@ -51,7 +51,7 @@ public class CustomerRepositoryImpl implements CustomerService {
 
     private CustomerEntity toEntity(Customer customer) {
         CustomerEntity entity = new CustomerEntity();
-        entity.setId(customer.getId());
+//        entity.setId(customer.getId());
         entity.setEmail(customer.getEmail());
         entity.setPasswordHash(customer.getPasswordHash());
         entity.setFirstName(customer.getFirstName());

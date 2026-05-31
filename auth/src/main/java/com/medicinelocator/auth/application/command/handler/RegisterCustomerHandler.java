@@ -46,7 +46,7 @@ public class RegisterCustomerHandler {
         String verificationToken = UUID.randomUUID().toString();
 
         Customer customer = new Customer(
-                UUID.randomUUID(),
+                null,
                 command.getEmail(),
                 hashedPassword,
                 command.getFirstName(),
@@ -60,16 +60,19 @@ public class RegisterCustomerHandler {
                 LocalDateTime.now()
         );
 
-        customerService.save(customer);
+        Customer savedCustomer = customerService.save(customer);
+
+        log.info("Saved customer ID = {}", savedCustomer.getId());
+        log.info("VERIFICATION TOKEN GENERATED = {}", verificationToken);
 
         redisTemplate.opsForValue().set(
                 "email_verify:" + verificationToken,
-                "CUSTOMER:" + customer.getId().toString(),
+                "CUSTOMER:" + savedCustomer.getId(),
                 24,
                 TimeUnit.HOURS
         );
 
-        emailService.sendEmailVerification(customer.getEmail(), verificationToken);
+        emailService.sendEmailVerification(savedCustomer.getEmail(), verificationToken);
 
         log.info("Customer registered successfully: email={}", customer.getEmail());
     }

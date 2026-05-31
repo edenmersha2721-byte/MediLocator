@@ -47,7 +47,7 @@ public class RegisterPharmacyHandler {
         String verificationToken = UUID.randomUUID().toString();
 
         Pharmacy pharmacy = new Pharmacy(
-                UUID.randomUUID(),
+                null,
                 command.getEmail(),
                 hashedPassword,
                 command.getPharmacyName(),
@@ -66,16 +66,16 @@ public class RegisterPharmacyHandler {
                 LocalDateTime.now()
         );
 
-        pharmacyService.save(pharmacy);
+       Pharmacy savedPharmacy= pharmacyService.save(pharmacy);
 
         redisTemplate.opsForValue().set(
                 "email_verify:" + verificationToken,
-                "PHARMACY:" + pharmacy.getId().toString(),
+                "PHARMACY:" + savedPharmacy.getId(),
                 24,
                 TimeUnit.HOURS
         );
 
-        emailService.sendEmailVerification(pharmacy.getEmail(), verificationToken);
+        emailService.sendEmailVerification(savedPharmacy.getEmail(), verificationToken);
 
         log.info("Pharmacy registered successfully: email={}", pharmacy.getEmail());
     }
