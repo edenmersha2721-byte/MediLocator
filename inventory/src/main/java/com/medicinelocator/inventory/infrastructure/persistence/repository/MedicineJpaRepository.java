@@ -24,22 +24,21 @@ public interface MedicineJpaRepository extends JpaRepository<MedicineEntity, UUI
 
     /**
      * Cross-pharmacy search using PostgreSQL LIKE on indexed columns.
-     * All parameters are optional — null means "no filter applied".
+     * Restructured evaluation statements to prevent Hibernate from defaulting parameters to bytea.
      */
     @Query("""
             SELECT m FROM MedicineEntity m
             WHERE m.active = true
-            AND (:medicineName IS NULL
-                 OR LOWER(m.medicineName) LIKE LOWER(CONCAT('%', :medicineName, '%')))
-            AND (:brandName IS NULL
-                 OR LOWER(m.brandName) LIKE LOWER(CONCAT('%', :brandName, '%')))
-            AND (:genericName IS NULL
-                 OR LOWER(m.genericName) LIKE LOWER(CONCAT('%', :genericName, '%')))
-            AND (:category IS NULL
-                 OR LOWER(m.category) LIKE LOWER(CONCAT('%', :category, '%')))
+            AND (LOWER(m.medicineName) LIKE LOWER(CONCAT('%', CAST(:medicineName AS string), '%')) 
+                 OR CAST(:medicineName AS string) IS NULL)
+            AND (LOWER(m.brandName) LIKE LOWER(CONCAT('%', CAST(:brandName AS string), '%')) 
+                 OR CAST(:brandName AS string) IS NULL)
+            AND (LOWER(m.genericName) LIKE LOWER(CONCAT('%', CAST(:genericName AS string), '%')) 
+                 OR CAST(:genericName AS string) IS NULL)
+            AND (LOWER(m.category) LIKE LOWER(CONCAT('%', CAST(:category AS string), '%')) 
+                 OR CAST(:category AS string) IS NULL)
             AND (:availableOnly IS NULL OR m.available = :availableOnly)
-            AND (:requiresPrescription IS NULL
-                 OR m.requiresPrescription = :requiresPrescription)
+            AND (:requiresPrescription IS NULL OR m.requiresPrescription = :requiresPrescription)
             """)
     Page<MedicineEntity> searchAcrossPharmacies(
             @Param("medicineName") String medicineName,
