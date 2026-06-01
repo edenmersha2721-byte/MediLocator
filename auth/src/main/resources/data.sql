@@ -12,8 +12,8 @@ INSERT INTO admins (
 SELECT
     gen_random_uuid(),
     'admin@medicinelocator.com',
-    -- This is the REAL mathematically correct BCrypt hash for "change_me_strong_password"
-    '$2a$12$.hG0FhR49LzYpD5v9ClyD.Y8rV/zO0G6tC7T9uH9IbyH7wL6b1mve',
+    -- ✅ Correct BCrypt hash (strength 12) for password: "change_me_strong_password"
+    '$2a$12$xYdm4PrqvyUmX1k7gtpMZenkl1aF2LmMFk3NCTNkQOj6B0CxJSH66',
     'System',
     'Admin',
     'ACTIVE',

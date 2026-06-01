@@ -7,12 +7,16 @@ import com.medicinelocator.auth.application.dto.response.*;
 import com.medicinelocator.auth.application.mapper.AuthMapper;
 import com.medicinelocator.auth.application.query.GetCurrentUserQuery;
 import com.medicinelocator.auth.application.query.handler.GetCurrentUserHandler;
+import com.medicinelocator.auth.application.service.AdminService;
 import com.medicinelocator.auth.domain.enums.Role;
+import com.medicinelocator.auth.domain.model.Admin;
+import com.medicinelocator.auth.infrastructure.security.BCryptPasswordHasher;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -28,6 +32,8 @@ public class AuthController {
     private final EmailVerificationHandler emailVerificationHandler;
     private final GetCurrentUserHandler getCurrentUserHandler;
     private final AuthMapper authMapper;
+    private final AdminService adminService;
+    private final BCryptPasswordHasher bCryptPasswordHasher;
 
     public AuthController(RegisterCustomerHandler registerCustomerHandler,
                           RegisterPharmacyHandler registerPharmacyHandler,
@@ -37,7 +43,9 @@ public class AuthController {
                           PasswordResetHandler passwordResetHandler,
                           EmailVerificationHandler emailVerificationHandler,
                           GetCurrentUserHandler getCurrentUserHandler,
-                          AuthMapper authMapper) {
+                          AuthMapper authMapper,
+                          AdminService adminService,
+                          BCryptPasswordHasher bCryptPasswordHasher) {
         this.registerCustomerHandler = registerCustomerHandler;
         this.registerPharmacyHandler = registerPharmacyHandler;
         this.loginHandler = loginHandler;
@@ -47,6 +55,8 @@ public class AuthController {
         this.emailVerificationHandler = emailVerificationHandler;
         this.getCurrentUserHandler = getCurrentUserHandler;
         this.authMapper = authMapper;
+        this.adminService=adminService;
+        this.bCryptPasswordHasher=bCryptPasswordHasher;
     }
 
     @PostMapping("/register/customer")

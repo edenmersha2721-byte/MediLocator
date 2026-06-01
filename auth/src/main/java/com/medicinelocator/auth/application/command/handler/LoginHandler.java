@@ -142,18 +142,28 @@ public class LoginHandler {
     }
 
     private AuthResponse loginAsAdmin(Admin admin, String rawPassword) {
+        log.info("=== ADMIN LOGIN ATTEMPT ===");
+        log.info("Email: {}", admin.getEmail());
+        log.info("Raw password received: '{}'", rawPassword);
+        log.info("Raw password length: {}", rawPassword != null ? rawPassword.length() : "null");
+
+        boolean passwordMatches = passwordHasher.matches(rawPassword, admin.getPasswordHash());
+        log.info("Password matches? {}", passwordMatches);
+
         if (admin.getAccountStatus() != AccountStatus.ACTIVE) {
             throw new AccountLockedException("Admin account is not active.");
         }
 
-        if (!passwordHasher.matches(rawPassword, admin.getPasswordHash())) {
+        if (!passwordMatches) {
+            log.warn("❌ Password match FAILED for admin: {}", admin.getEmail());
             throw new IllegalArgumentException("Invalid email or password");
         }
+
+        log.info("✅ Admin login successful: {}", admin.getEmail());
 
         String accessToken = tokenService.generateAccessToken(admin.getId(), admin.getEmail(), Role.ADMIN);
         RefreshToken refreshToken = tokenService.generateRefreshToken(admin.getId(), Role.ADMIN);
 
-        log.info("Admin logged in: email={}", admin.getEmail());
         return new AuthResponse(accessToken, refreshToken.getTokenHash(), "Bearer", accessTokenExpiration, "ADMIN");
     }
 }

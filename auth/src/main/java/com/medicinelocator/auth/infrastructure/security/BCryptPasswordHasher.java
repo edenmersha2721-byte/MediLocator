@@ -12,7 +12,9 @@ public class BCryptPasswordHasher implements PasswordHasher {
     public BCryptPasswordHasher() {
         this.encoder = new BCryptPasswordEncoder(12);
     }
-
+    public String generateHashForDebug() {
+        return encoder.encode("change_me_strong_password");
+    }
     @Override
     public String hash(String rawPassword) {
         return encoder.encode(rawPassword);
