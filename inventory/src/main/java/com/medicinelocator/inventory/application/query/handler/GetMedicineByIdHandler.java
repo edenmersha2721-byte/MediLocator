@@ -15,15 +15,19 @@ public class GetMedicineByIdHandler {
     private final MedicineService medicineService;
     private final MedicineMapper medicineMapper;
 
-    public GetMedicineByIdHandler(MedicineService medicineService, MedicineMapper medicineMapper) {
+    public GetMedicineByIdHandler(MedicineService medicineService,
+                                  MedicineMapper medicineMapper) {
         this.medicineService = medicineService;
         this.medicineMapper = medicineMapper;
     }
 
     @Transactional(readOnly = true)
     public MedicineResponse handle(GetMedicineByIdQuery query) {
-        Medicine medicine = medicineService.findById(query.getMedicineId())
-                .orElseThrow(() -> new MedicineNotFoundException(query.getMedicineId()));
+        Medicine medicine = medicineService
+                .findByIdAndPharmacyId(query.getMedicineId(), query.getPharmacyId())
+                .orElseThrow(() -> new MedicineNotFoundException(
+                        query.getPharmacyId(), query.getMedicineId()));
+
         return medicineMapper.toMedicineResponse(medicine);
     }
 }

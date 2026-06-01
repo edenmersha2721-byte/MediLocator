@@ -26,20 +26,15 @@ public class RemoveMedicineHandler {
 
     @Transactional
     public void handle(RemoveMedicineCommand command) {
-        Medicine medicine = medicineService.findById(command.getMedicineId())
-                .orElseThrow(() -> new MedicineNotFoundException(command.getMedicineId()));
+        Medicine medicine = medicineService
+                .findByIdAndPharmacyId(command.getMedicineId(), command.getPharmacyId())
+                .orElseThrow(() -> new MedicineNotFoundException(
+                        command.getPharmacyId(), command.getMedicineId()));
 
-        if (medicineService.hasInventory(command.getMedicineId())) {
-            // Soft-delete: deactivate instead of physical delete
-            medicine.deactivate();
-            medicineService.update(medicine);
-            log.info("Medicine deactivated (has inventory): id={}", command.getMedicineId());
-        } else {
-            medicine.deactivate();
-            medicineService.update(medicine);
-            log.info("Medicine deactivated: id={}", command.getMedicineId());
-        }
-
-        cacheService.evictMedicineCache(command.getMedicineId());
+        medicine.deactivate();
+        medicineService.update(medicine);
+        cacheService.evictPharmacyInventoryCache(command.getPharmacyId());
+        log.info("Medicine removed (deactivated): medicineId={} pharmacyId={}",
+                command.getMedicineId(), command.getPharmacyId());
     }
 }

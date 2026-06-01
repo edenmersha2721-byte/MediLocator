@@ -1,6 +1,6 @@
 package com.medicinelocator.inventory.application.query.handler;
 
-import com.medicinelocator.inventory.application.dto.response.MedicineResponse;
+import com.medicinelocator.inventory.application.dto.response.MedicineSearchResponse;
 import com.medicinelocator.inventory.application.dto.response.PagedResponse;
 import com.medicinelocator.inventory.application.mapper.MedicineMapper;
 import com.medicinelocator.inventory.application.query.SearchMedicinesQuery;
@@ -17,26 +17,27 @@ public class SearchMedicinesHandler {
     private final MedicineService medicineService;
     private final MedicineMapper medicineMapper;
 
-    public SearchMedicinesHandler(MedicineService medicineService, MedicineMapper medicineMapper) {
+    public SearchMedicinesHandler(MedicineService medicineService,
+                                  MedicineMapper medicineMapper) {
         this.medicineService = medicineService;
         this.medicineMapper = medicineMapper;
     }
 
     @Transactional(readOnly = true)
-    public PagedResponse<MedicineResponse> handle(SearchMedicinesQuery query) {
+    public PagedResponse<MedicineSearchResponse> handle(SearchMedicinesQuery query) {
         PageRequest pageable = PageRequest.of(query.getPage(), query.getSize());
-        Page<Medicine> page = medicineService.searchMedicines(
-                query.getName(),
+        Page<Medicine> page = medicineService.searchAcrossPharmacies(
+                query.getMedicineName(),
                 query.getBrandName(),
                 query.getGenericName(),
-                query.getCategoryId(),
+                query.getCategory(),
+                query.getAvailableOnly(),
                 query.getRequiresPrescription(),
-                query.getActiveOnly(),
                 pageable
         );
 
         return new PagedResponse<>(
-                page.getContent().stream().map(medicineMapper::toMedicineResponse).toList(),
+                page.getContent().stream().map(medicineMapper::toMedicineSearchResponse).toList(),
                 query.getPage(),
                 query.getSize(),
                 page.getTotalElements()

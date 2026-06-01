@@ -28,30 +28,17 @@ public class GlobalExceptionHandler {
             fieldErrors.put(error.getField(), error.getDefaultMessage());
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDetails(
-                HttpStatus.BAD_REQUEST.value(), "Validation Failed",
+                HttpStatus.BAD_REQUEST.value(),
+                "Validation Failed",
                 "One or more fields have validation errors",
-                request.getRequestURI(), LocalDateTime.now(), fieldErrors));
+                request.getRequestURI(),
+                LocalDateTime.now(),
+                fieldErrors));
     }
 
     @ExceptionHandler(MedicineNotFoundException.class)
     public ResponseEntity<ErrorDetails> handleMedicineNotFound(
             MedicineNotFoundException ex, HttpServletRequest request) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorDetails(
-                HttpStatus.NOT_FOUND.value(), "Not Found", ex.getMessage(),
-                request.getRequestURI(), LocalDateTime.now(), null));
-    }
-
-    @ExceptionHandler(CategoryNotFoundException.class)
-    public ResponseEntity<ErrorDetails> handleCategoryNotFound(
-            CategoryNotFoundException ex, HttpServletRequest request) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorDetails(
-                HttpStatus.NOT_FOUND.value(), "Not Found", ex.getMessage(),
-                request.getRequestURI(), LocalDateTime.now(), null));
-    }
-
-    @ExceptionHandler(InventoryNotFoundException.class)
-    public ResponseEntity<ErrorDetails> handleInventoryNotFound(
-            InventoryNotFoundException ex, HttpServletRequest request) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorDetails(
                 HttpStatus.NOT_FOUND.value(), "Not Found", ex.getMessage(),
                 request.getRequestURI(), LocalDateTime.now(), null));
@@ -65,11 +52,11 @@ public class GlobalExceptionHandler {
                 request.getRequestURI(), LocalDateTime.now(), null));
     }
 
-    @ExceptionHandler(DuplicateInventoryException.class)
-    public ResponseEntity<ErrorDetails> handleDuplicateInventory(
-            DuplicateInventoryException ex, HttpServletRequest request) {
+    @ExceptionHandler(DuplicateMedicineException.class)
+    public ResponseEntity<ErrorDetails> handleDuplicateMedicine(
+            DuplicateMedicineException ex, HttpServletRequest request) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorDetails(
-                HttpStatus.CONFLICT.value(), "Duplicate Inventory", ex.getMessage(),
+                HttpStatus.CONFLICT.value(), "Duplicate Medicine", ex.getMessage(),
                 request.getRequestURI(), LocalDateTime.now(), null));
     }
 
@@ -94,9 +81,12 @@ public class GlobalExceptionHandler {
             Exception ex, HttpServletRequest request) {
         log.error("Unhandled exception at {}: {}", request.getRequestURI(), ex.getMessage(), ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorDetails(
-                HttpStatus.INTERNAL_SERVER_ERROR.value(), "Internal Server Error",
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                "Internal Server Error",
                 "An unexpected error occurred. Please try again later.",
-                request.getRequestURI(), LocalDateTime.now(), null));
+                request.getRequestURI(),
+                LocalDateTime.now(),
+                null));
     }
 
     public record ErrorDetails(

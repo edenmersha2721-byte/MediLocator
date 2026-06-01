@@ -7,15 +7,25 @@ public class PharmacyInventoryResponse {
 
     private UUID pharmacyId;
     private int totalItems;
-    private List<InventoryItemResponse> items;
+    private int page;
+    private int size;
+    private long totalElements;
+    private int totalPages;
+    private List<MedicineResponse> medicines;
 
     public PharmacyInventoryResponse() {
     }
 
-    public PharmacyInventoryResponse(UUID pharmacyId, int totalItems, List<InventoryItemResponse> items) {
+    public PharmacyInventoryResponse(UUID pharmacyId, int totalItems, int page, int size,
+                                     long totalElements, int totalPages,
+                                     List<MedicineResponse> medicines) {
         this.pharmacyId = pharmacyId;
         this.totalItems = totalItems;
-        this.items = items;
+        this.page = page;
+        this.size = size;
+        this.totalElements = totalElements;
+        this.totalPages = totalPages;
+        this.medicines = medicines;
     }
 
     public UUID getPharmacyId() { return pharmacyId; }
@@ -24,6 +34,18 @@ public class PharmacyInventoryResponse {
     public int getTotalItems() { return totalItems; }
     public void setTotalItems(int totalItems) { this.totalItems = totalItems; }
 
-    public List<InventoryItemResponse> getItems() { return items; }
-    public void setItems(List<InventoryItemResponse> items) { this.items = items; }
+    public int getPage() { return page; }
+    public void setPage(int page) { this.page = page; }
+
+    public int getSize() { return size; }
+    public void setSize(int size) { this.size = size; }
+
+    public long getTotalElements() { return totalElements; }
+    public void setTotalElements(long totalElements) { this.totalElements = totalElements; }
+
+    public int getTotalPages() { return totalPages; }
+    public void setTotalPages(int totalPages) { this.totalPages = totalPages; }
+
+    public List<MedicineResponse> getMedicines() { return medicines; }
+    public void setMedicines(List<MedicineResponse> medicines) { this.medicines = medicines; }
 }

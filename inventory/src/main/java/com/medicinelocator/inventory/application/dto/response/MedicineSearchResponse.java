@@ -1,42 +1,35 @@
-package com.medicinelocator.inventory.application.dto.request;
-
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
-import jakarta.validation.constraints.Size;
+package com.medicinelocator.inventory.application.dto.response;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.UUID;
 
-public class UpdateStockRequest {
+/**
+ * Returned in cross-pharmacy search.
+ * Aggregates medicine + owning pharmacy identity in one response.
+ */
+public class MedicineSearchResponse {
 
-    @NotBlank(message = "Medicine name is required")
-    @Size(min = 1, max = 255)
+    private UUID medicineId;
+    private UUID pharmacyId;
     private String medicineName;
-
-    @Size(max = 255)
     private String genericName;
-
-    @Size(max = 255)
     private String brandName;
-
-    @Size(max = 100)
     private String category;
-
-    @Size(max = 2000)
-    private String description;
-
-    @NotNull(message = "Price is required")
-    @DecimalMin(value = "0.0", message = "Price cannot be negative")
     private BigDecimal price;
-
-    @PositiveOrZero(message = "Stock quantity cannot be negative")
     private int stockQuantity;
-
+    private boolean available;
     private boolean requiresPrescription;
-
     private LocalDate expiryDate;
+
+    public MedicineSearchResponse() {
+    }
+
+    public UUID getMedicineId() { return medicineId; }
+    public void setMedicineId(UUID medicineId) { this.medicineId = medicineId; }
+
+    public UUID getPharmacyId() { return pharmacyId; }
+    public void setPharmacyId(UUID pharmacyId) { this.pharmacyId = pharmacyId; }
 
     public String getMedicineName() { return medicineName; }
     public void setMedicineName(String medicineName) { this.medicineName = medicineName; }
@@ -50,14 +43,14 @@ public class UpdateStockRequest {
     public String getCategory() { return category; }
     public void setCategory(String category) { this.category = category; }
 
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
-
     public BigDecimal getPrice() { return price; }
     public void setPrice(BigDecimal price) { this.price = price; }
 
     public int getStockQuantity() { return stockQuantity; }
     public void setStockQuantity(int stockQuantity) { this.stockQuantity = stockQuantity; }
+
+    public boolean isAvailable() { return available; }
+    public void setAvailable(boolean available) { this.available = available; }
 
     public boolean isRequiresPrescription() { return requiresPrescription; }
     public void setRequiresPrescription(boolean requiresPrescription) {

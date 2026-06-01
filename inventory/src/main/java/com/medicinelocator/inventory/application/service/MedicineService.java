@@ -11,15 +11,18 @@ public interface MedicineService {
 
     Medicine save(Medicine medicine);
 
-    Optional<Medicine> findById(UUID id);
+    Optional<Medicine> findByIdAndPharmacyId(UUID medicineId, UUID pharmacyId);
 
-    boolean existsById(UUID id);
+    boolean existsByPharmacyIdAndMedicineName(UUID pharmacyId, String medicineName);
 
     Medicine update(Medicine medicine);
 
-    Page<Medicine> searchMedicines(String name, String brandName, String genericName,
-                                   UUID categoryId, Boolean requiresPrescription,
-                                   Boolean activeOnly, Pageable pageable);
+    void deleteById(UUID medicineId);
 
-    boolean hasInventory(UUID medicineId);
+    Page<Medicine> findByPharmacyId(UUID pharmacyId, boolean availableOnly, Pageable pageable);
+
+    Page<Medicine> searchAcrossPharmacies(String medicineName, String brandName,
+                                          String genericName, String category,
+                                          Boolean availableOnly, Boolean requiresPrescription,
+                                          Pageable pageable);
 }

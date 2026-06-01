@@ -91,9 +91,9 @@ spring:
     name: inventory-service
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/medicine_locator_db}
-    username: ${SPRING_DATASOURCE_USERNAME:medicine_user}
-    password: ${SPRING_DATASOURCE_PASSWORD:medicine_pass}
+    url: jdbc:postgresql://localhost:5432/inventory_db
+    username: postgres
+    password: Edu27015
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10
@@ -104,8 +104,8 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: validate
-    show-sql: false
+      ddl-auto: update
+    show-sql: true
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
@@ -117,9 +117,9 @@ spring:
 
   data:
     redis:
-      host: ${SPRING_REDIS_HOST:localhost}
-      port: ${SPRING_REDIS_PORT:6379}
-      password: ${SPRING_REDIS_PASSWORD:}
+      host: localhost
+      port: 6379
+      password:
       timeout: 2000ms
       lettuce:
         pool:
@@ -134,7 +134,7 @@ management:
         include: health,info,metrics
   endpoint:
     health:
-      show-details: when-authorized
+      show-details: always
 
 inventory:
   cache:
@@ -144,6 +144,6 @@ inventory:
 logging:
   level:
     com.medicinelocator.inventory: DEBUG
-    org.hibernate.SQL: WARN
+    org.hibernate.SQL: DEBUG
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [%X{requestId}] %logger{36} - %msg%n"

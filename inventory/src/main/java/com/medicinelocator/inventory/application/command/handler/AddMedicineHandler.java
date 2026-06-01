@@ -1,9 +1,8 @@
 package com.medicinelocator.inventory.application.command.handler;
 
 import com.medicinelocator.inventory.application.command.AddMedicineCommand;
-import com.medicinelocator.inventory.application.service.CategoryService;
 import com.medicinelocator.inventory.application.service.MedicineService;
-import com.medicinelocator.inventory.domain.exception.CategoryNotFoundException;
+import com.medicinelocator.inventory.domain.exception.DuplicateMedicineException;
 import com.medicinelocator.inventory.domain.model.Medicine;
 import com.medicinelocator.inventory.infrastructure.redis.InventoryCacheService;
 import org.slf4j.Logger;
@@ -20,39 +19,47 @@ public class AddMedicineHandler {
     private static final Logger log = LoggerFactory.getLogger(AddMedicineHandler.class);
 
     private final MedicineService medicineService;
-    private final CategoryService categoryService;
     private final InventoryCacheService cacheService;
 
     public AddMedicineHandler(MedicineService medicineService,
-                              CategoryService categoryService,
                               InventoryCacheService cacheService) {
         this.medicineService = medicineService;
-        this.categoryService = categoryService;
         this.cacheService = cacheService;
     }
 
     @Transactional
     public Medicine handle(AddMedicineCommand command) {
-        if (!categoryService.existsById(command.getCategoryId())) {
-            throw new CategoryNotFoundException(command.getCategoryId());
+        if (medicineService.existsByPharmacyIdAndMedicineName(
+                command.getPharmacyId(), command.getMedicineName())) {
+            throw new DuplicateMedicineException(
+                    "Medicine '" + command.getMedicineName()
+                            + "' already exists in your inventory");
         }
+
+        boolean available = command.getStockQuantity() > 0;
 
         Medicine medicine = new Medicine(
                 UUID.randomUUID(),
-                command.getName(),
+                command.getPharmacyId(),
+                command.getMedicineName(),
                 command.getGenericName(),
                 command.getBrandName(),
+                command.getCategory(),
                 command.getDescription(),
-                command.getCategoryId(),
+                command.getPrice(),
+                command.getStockQuantity(),
+                available,
                 command.isRequiresPrescription(),
+                command.getExpiryDate(),
                 true,
                 LocalDateTime.now(),
                 LocalDateTime.now()
         );
 
         Medicine saved = medicineService.save(medicine);
-        cacheService.evictMedicineCache(saved.getId());
-        log.info("Medicine added: id={} name={}", saved.getId(), saved.getName());
+        cacheService.evictPharmacyInventoryCache(command.getPharmacyId());
+        log.info("Medicine added: id={} pharmacyId={} name={}",
+                saved.getId(), saved.getPharmacyId(), saved.getMedicineName());
         return saved;
     }
 }

@@ -1,6 +1,8 @@
 package com.medicinelocator.inventory.infrastructure.persistence.repository;
 
-import com.medicinelocator.inventory.infrastructure.persistence.entity.InventoryItemEntity;
+import com.medicinelocator.inventory.infrastructure.persistence.entity.MedicineEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,12 +10,18 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * InventoryItem queries — projections onto MedicineEntity filtered by
+ * availability and expiry. Kept as a separate interface per the folder contract.
+ */
 @Repository
-public interface InventoryItemJpaRepository extends JpaRepository<InventoryItemEntity, UUID> {
+public interface InventoryItemJpaRepository extends JpaRepository<MedicineEntity, UUID> {
 
-    List<InventoryItemEntity> findByPharmacyIdAndMedicineId(UUID pharmacyId, UUID medicineId);
+    Page<MedicineEntity> findByPharmacyIdAndAvailableTrueAndActiveTrue(UUID pharmacyId,
+                                                                       Pageable pageable);
 
-    List<InventoryItemEntity> findByExpiryDateBefore(LocalDate date);
+    List<MedicineEntity> findByExpiryDateBeforeAndActiveTrue(LocalDate date);
 
-    List<InventoryItemEntity> findByPharmacyIdAndAvailableTrue(UUID pharmacyId);
+    List<MedicineEntity> findByPharmacyIdAndStockQuantityLessThanAndActiveTrue(UUID pharmacyId,
+                                                                               int threshold);
 }

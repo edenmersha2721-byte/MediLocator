@@ -1,15 +1,11 @@
 package com.medicinelocator.inventory.application.mapper;
 
 import com.medicinelocator.inventory.application.command.AddMedicineCommand;
-import com.medicinelocator.inventory.application.command.CreateCategoryCommand;
-import com.medicinelocator.inventory.application.command.UpdateCategoryCommand;
-import com.medicinelocator.inventory.application.command.UpdateMedicineCommand;
+import com.medicinelocator.inventory.application.command.UpdateStockCommand;
 import com.medicinelocator.inventory.application.dto.request.AddMedicineRequest;
-import com.medicinelocator.inventory.application.dto.request.CreateCategoryRequest;
-import com.medicinelocator.inventory.application.dto.request.UpdateCategoryRequest;
-import com.medicinelocator.inventory.application.dto.request.UpdateMedicineRequest;
-import com.medicinelocator.inventory.application.dto.response.CategoryResponse;
+import com.medicinelocator.inventory.application.dto.request.UpdateStockRequest;
 import com.medicinelocator.inventory.application.dto.response.MedicineResponse;
+import com.medicinelocator.inventory.application.dto.response.MedicineSearchResponse;
 import com.medicinelocator.inventory.domain.model.Medicine;
 import org.springframework.stereotype.Component;
 
@@ -18,69 +14,75 @@ import java.util.UUID;
 @Component
 public class MedicineMapper {
 
-    public AddMedicineCommand toAddMedicineCommand(AddMedicineRequest request) {
+    public AddMedicineCommand toAddMedicineCommand(UUID pharmacyId, AddMedicineRequest request) {
         return new AddMedicineCommand(
-                request.getName().trim(),
-                request.getGenericName() != null ? request.getGenericName().trim() : null,
-                request.getBrandName() != null ? request.getBrandName().trim() : null,
-                request.getDescription() != null ? request.getDescription().trim() : null,
-                request.getCategoryId(),
-                request.isRequiresPrescription()
-        );
-    }
-
-    public UpdateMedicineCommand toUpdateMedicineCommand(UUID medicineId, UpdateMedicineRequest request) {
-        return new UpdateMedicineCommand(
-                medicineId,
-                request.getName().trim(),
-                request.getGenericName() != null ? request.getGenericName().trim() : null,
-                request.getBrandName() != null ? request.getBrandName().trim() : null,
-                request.getDescription() != null ? request.getDescription().trim() : null,
-                request.getCategoryId(),
+                pharmacyId,
+                request.getMedicineName().trim(),
+                trimOrNull(request.getGenericName()),
+                trimOrNull(request.getBrandName()),
+                trimOrNull(request.getCategory()),
+                trimOrNull(request.getDescription()),
+                request.getPrice(),
+                request.getStockQuantity(),
                 request.isRequiresPrescription(),
-                request.isActive()
+                request.getExpiryDate()
         );
     }
 
-    public CreateCategoryCommand toCreateCategoryCommand(CreateCategoryRequest request) {
-        return new CreateCategoryCommand(
-                request.getName().trim(),
-                request.getDescription() != null ? request.getDescription().trim() : null
-        );
-    }
-
-    public UpdateCategoryCommand toUpdateCategoryCommand(UUID categoryId, UpdateCategoryRequest request) {
-        return new UpdateCategoryCommand(
-                categoryId,
-                request.getName().trim(),
-                request.getDescription() != null ? request.getDescription().trim() : null,
-                request.isActive()
+    public UpdateStockCommand toUpdateStockCommand(UUID pharmacyId, UUID medicineId,
+                                                   UpdateStockRequest request) {
+        return new UpdateStockCommand(
+                pharmacyId,
+                medicineId,
+                request.getMedicineName().trim(),
+                trimOrNull(request.getGenericName()),
+                trimOrNull(request.getBrandName()),
+                trimOrNull(request.getCategory()),
+                trimOrNull(request.getDescription()),
+                request.getPrice(),
+                request.getStockQuantity(),
+                request.isRequiresPrescription(),
+                request.getExpiryDate()
         );
     }
 
     public MedicineResponse toMedicineResponse(Medicine medicine) {
         MedicineResponse response = new MedicineResponse();
         response.setId(medicine.getId());
-        response.setName(medicine.getName());
+        response.setPharmacyId(medicine.getPharmacyId());
+        response.setMedicineName(medicine.getMedicineName());
         response.setGenericName(medicine.getGenericName());
         response.setBrandName(medicine.getBrandName());
+        response.setCategory(medicine.getCategory());
         response.setDescription(medicine.getDescription());
-        response.setCategoryId(medicine.getCategoryId());
+        response.setPrice(medicine.getPrice());
+        response.setStockQuantity(medicine.getStockQuantity());
+        response.setAvailable(medicine.isAvailable());
         response.setRequiresPrescription(medicine.isRequiresPrescription());
+        response.setExpiryDate(medicine.getExpiryDate());
         response.setActive(medicine.isActive());
         response.setCreatedAt(medicine.getCreatedAt());
         response.setUpdatedAt(medicine.getUpdatedAt());
         return response;
     }
 
-    public CategoryResponse toCategoryResponse(MedicineCategoryDomain category) {
-        CategoryResponse response = new CategoryResponse();
-        response.setId(category.getId());
-        response.setName(category.getName());
-        response.setDescription(category.getDescription());
-        response.setActive(category.isActive());
-        response.setCreatedAt(category.getCreatedAt());
-        response.setUpdatedAt(category.getUpdatedAt());
+    public MedicineSearchResponse toMedicineSearchResponse(Medicine medicine) {
+        MedicineSearchResponse response = new MedicineSearchResponse();
+        response.setMedicineId(medicine.getId());
+        response.setPharmacyId(medicine.getPharmacyId());
+        response.setMedicineName(medicine.getMedicineName());
+        response.setGenericName(medicine.getGenericName());
+        response.setBrandName(medicine.getBrandName());
+        response.setCategory(medicine.getCategory());
+        response.setPrice(medicine.getPrice());
+        response.setStockQuantity(medicine.getStockQuantity());
+        response.setAvailable(medicine.isAvailable());
+        response.setRequiresPrescription(medicine.isRequiresPrescription());
+        response.setExpiryDate(medicine.getExpiryDate());
         return response;
+    }
+
+    private String trimOrNull(String value) {
+        return value != null ? value.trim() : null;
     }
 }

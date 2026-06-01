@@ -16,8 +16,8 @@ public class PagedResponse<T> {
         this.page = page;
         this.size = size;
         this.totalElements = totalElements;
-        this.totalPages = (int) Math.ceil((double) totalElements / size);
-        this.last = page >= totalPages - 1;
+        this.totalPages = size == 0 ? 0 : (int) Math.ceil((double) totalElements / size);
+        this.last = page >= this.totalPages - 1;
     }
 
     public List<T> getContent() { return content; }

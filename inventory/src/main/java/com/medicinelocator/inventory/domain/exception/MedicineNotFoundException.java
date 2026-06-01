@@ -8,7 +8,11 @@ public class MedicineNotFoundException extends RuntimeException {
         super(message);
     }
 
-    public MedicineNotFoundException(UUID id) {
-        super("Medicine not found with id: " + id);
+    public MedicineNotFoundException(UUID medicineId) {
+        super("Medicine not found with id: " + medicineId);
+    }
+
+    public MedicineNotFoundException(UUID pharmacyId, UUID medicineId) {
+        super("Medicine not found with id: " + medicineId + " for pharmacy: " + pharmacyId);
     }
 }

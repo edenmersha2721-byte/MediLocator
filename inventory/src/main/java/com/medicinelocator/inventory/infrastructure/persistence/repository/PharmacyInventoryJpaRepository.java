@@ -1,27 +1,23 @@
 package com.medicinelocator.inventory.infrastructure.persistence.repository;
 
-import com.medicinelocator.inventory.infrastructure.persistence.entity.PharmacyInventoryEntity;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.medicinelocator.inventory.infrastructure.persistence.entity.MedicineEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Kept to satisfy the folder-structure contract.
+ * In this pharmacy-owned model, all inventory queries go through
+ * {@link MedicineJpaRepository} — the single source of truth.
+ *
+ * This repository is a thin alias for pharmacy-scoped count/existence checks
+ * that aren't already on MedicineJpaRepository.
+ */
 @Repository
-public interface PharmacyInventoryJpaRepository extends JpaRepository<PharmacyInventoryEntity, UUID> {
+public interface PharmacyInventoryJpaRepository extends JpaRepository<MedicineEntity, UUID> {
 
-    Optional<PharmacyInventoryEntity> findByPharmacyIdAndMedicineId(UUID pharmacyId, UUID medicineId);
+    long countByPharmacyIdAndActiveTrue(UUID pharmacyId);
 
-    boolean existsByPharmacyIdAndMedicineId(UUID pharmacyId, UUID medicineId);
-
-    Page<PharmacyInventoryEntity> findByPharmacyId(UUID pharmacyId, Pageable pageable);
-
-    Page<PharmacyInventoryEntity> findByMedicineIdAndAvailableTrue(UUID medicineId, Pageable pageable);
-
-    List<PharmacyInventoryEntity> findByMedicineId(UUID medicineId);
-
-    boolean existsByMedicineId(UUID medicineId);
+    boolean existsByPharmacyId(UUID pharmacyId);
 }

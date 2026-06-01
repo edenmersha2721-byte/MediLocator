@@ -1,37 +1,35 @@
 package com.medicinelocator.inventory.application.query;
 
-import java.util.UUID;
-
 public class SearchMedicinesQuery {
 
-    private final String name;
+    private final String medicineName;
     private final String brandName;
     private final String genericName;
-    private final UUID categoryId;
+    private final String category;
+    private final Boolean availableOnly;
     private final Boolean requiresPrescription;
-    private final Boolean activeOnly;
     private final int page;
     private final int size;
 
-    public SearchMedicinesQuery(String name, String brandName, String genericName,
-                                UUID categoryId, Boolean requiresPrescription,
-                                Boolean activeOnly, int page, int size) {
-        this.name = name;
+    public SearchMedicinesQuery(String medicineName, String brandName, String genericName,
+                                String category, Boolean availableOnly,
+                                Boolean requiresPrescription, int page, int size) {
+        this.medicineName = medicineName;
         this.brandName = brandName;
         this.genericName = genericName;
-        this.categoryId = categoryId;
+        this.category = category;
+        this.availableOnly = availableOnly;
         this.requiresPrescription = requiresPrescription;
-        this.activeOnly = activeOnly;
         this.page = page;
         this.size = size;
     }
 
-    public String getName() { return name; }
+    public String getMedicineName() { return medicineName; }
     public String getBrandName() { return brandName; }
     public String getGenericName() { return genericName; }
-    public UUID getCategoryId() { return categoryId; }
+    public String getCategory() { return category; }
+    public Boolean getAvailableOnly() { return availableOnly; }
     public Boolean getRequiresPrescription() { return requiresPrescription; }
-    public Boolean getActiveOnly() { return activeOnly; }
     public int getPage() { return page; }
     public int getSize() { return size; }
 }
