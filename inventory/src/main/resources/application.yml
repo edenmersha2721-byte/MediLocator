@@ -1,28 +1,99 @@
+#server:
+#  port: 8082
+#
+#spring:
+#  application:
+#    name: inventory
+#
+#  # ❌ WRONG LOCATION (Spring will ignore this)
+#  # datasource:
+#  #   url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/inventory_db}
+#  #   username: ${SPRING_DATASOURCE_USERNAME:postgres}
+#  #   password: ${SPRING_DATASOURCE_PASSWORD:Edu27015}
+#  #   driver-class-name: org.postgresql.Driver
+#  #   hikari:
+#  #     maximum-pool-size: 10
+#  #     minimum-idle: 5
+#  #     connection-timeout: 30000
+#  #     idle-timeout: 600000
+#  #     max-lifetime: 1800000
+#
+#  # ✅ CORRECT SPRING STRUCTURE
+#  datasource:
+#    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/inventory_db}
+#    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+#    password: ${SPRING_DATASOURCE_PASSWORD:Edu27015}
+#    driver-class-name: org.postgresql.Driver
+#    hikari:
+#      maximum-pool-size: 10
+#      minimum-idle: 5
+#      connection-timeout: 30000
+#      idle-timeout: 600000
+#      max-lifetime: 1800000
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: false
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+#        format_sql: true
+#        jdbc:
+#          batch_size: 50
+#        order_inserts: true
+#        order_updates: true
+#
+#  data:
+#    redis:
+#      host: ${SPRING_REDIS_HOST:localhost}
+#      port: ${SPRING_REDIS_PORT:6379}
+#      password: ${SPRING_REDIS_PASSWORD:}
+#      timeout: 2000ms
+#      lettuce:
+#        pool:
+#          max-active: 10
+#          max-idle: 5
+#          min-idle: 2
+#
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: health,info,metrics
+#  endpoint:
+#    health:
+#      show-details: when-authorized
+#
+#  health:
+#    redis:
+#      enabled: false
+#    reactive:
+#      redis:
+#        enabled: false
+#
+#inventory:
+#  cache:
+#    medicine-ttl-seconds: 300
+#    inventory-ttl-seconds: 120
+#
+#logging:
+#  level:
+#    com.medicinelocator.inventory: DEBUG
+#    org.hibernate.SQL: WARN
+#  pattern:
+#    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [%X{requestId}] %logger{36} - %msg%n"
 server:
   port: 8082
 
 spring:
   application:
-    name: inventory
+    name: inventory-service
 
-  # ❌ WRONG LOCATION (Spring will ignore this)
-  # datasource:
-  #   url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/inventory_db}
-  #   username: ${SPRING_DATASOURCE_USERNAME:postgres}
-  #   password: ${SPRING_DATASOURCE_PASSWORD:Edu27015}
-  #   driver-class-name: org.postgresql.Driver
-  #   hikari:
-  #     maximum-pool-size: 10
-  #     minimum-idle: 5
-  #     connection-timeout: 30000
-  #     idle-timeout: 600000
-  #     max-lifetime: 1800000
-
-  # ✅ CORRECT SPRING STRUCTURE
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/inventory_db}
-    username: ${SPRING_DATASOURCE_USERNAME:postgres}
-    password: ${SPRING_DATASOURCE_PASSWORD:Edu27015}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/medicine_locator_db}
+    username: ${SPRING_DATASOURCE_USERNAME:medicine_user}
+    password: ${SPRING_DATASOURCE_PASSWORD:medicine_pass}
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10
@@ -33,7 +104,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     show-sql: false
     properties:
       hibernate:
@@ -65,17 +136,10 @@ management:
     health:
       show-details: when-authorized
 
-  health:
-    redis:
-      enabled: false
-    reactive:
-      redis:
-        enabled: false
-
 inventory:
   cache:
-    medicine-ttl-seconds: 300
-    inventory-ttl-seconds: 120
+    pharmacy-medicines-ttl-seconds: 120
+    search-ttl-seconds: 60
 
 logging:
   level:

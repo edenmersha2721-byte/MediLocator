@@ -11,7 +11,6 @@ import com.medicinelocator.inventory.application.dto.request.UpdateMedicineReque
 import com.medicinelocator.inventory.application.dto.response.CategoryResponse;
 import com.medicinelocator.inventory.application.dto.response.MedicineResponse;
 import com.medicinelocator.inventory.domain.model.Medicine;
-import com.medicinelocator.inventory.domain.model.MedicineCategoryDomain;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;

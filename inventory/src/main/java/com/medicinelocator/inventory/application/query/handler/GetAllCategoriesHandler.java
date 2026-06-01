@@ -4,7 +4,6 @@ import com.medicinelocator.inventory.application.dto.response.CategoryResponse;
 import com.medicinelocator.inventory.application.mapper.MedicineMapper;
 import com.medicinelocator.inventory.application.query.GetAllCategoriesQuery;
 import com.medicinelocator.inventory.application.service.CategoryService;
-import com.medicinelocator.inventory.domain.model.MedicineCategoryDomain;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 

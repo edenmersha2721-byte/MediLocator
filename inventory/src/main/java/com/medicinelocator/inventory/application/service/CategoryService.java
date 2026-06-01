@@ -1,7 +1,5 @@
 package com.medicinelocator.inventory.application.service;
 
-import com.medicinelocator.inventory.domain.model.MedicineCategoryDomain;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

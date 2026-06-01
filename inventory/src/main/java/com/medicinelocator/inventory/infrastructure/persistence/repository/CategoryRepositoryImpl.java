@@ -1,7 +1,6 @@
 package com.medicinelocator.inventory.infrastructure.persistence.repository;
 
 import com.medicinelocator.inventory.application.service.CategoryService;
-import com.medicinelocator.inventory.domain.model.MedicineCategoryDomain;
 import com.medicinelocator.inventory.infrastructure.persistence.entity.MedicineCategoryEntity;
 import org.springframework.stereotype.Component;
 

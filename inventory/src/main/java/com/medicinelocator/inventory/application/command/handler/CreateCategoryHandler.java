@@ -2,7 +2,6 @@ package com.medicinelocator.inventory.application.command.handler;
 
 import com.medicinelocator.inventory.application.command.CreateCategoryCommand;
 import com.medicinelocator.inventory.application.service.CategoryService;
-import com.medicinelocator.inventory.domain.model.MedicineCategoryDomain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

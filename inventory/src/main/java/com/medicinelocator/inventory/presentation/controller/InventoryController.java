@@ -9,7 +9,6 @@ import com.medicinelocator.inventory.application.mapper.MedicineMapper;
 import com.medicinelocator.inventory.application.query.*;
 import com.medicinelocator.inventory.application.query.handler.*;
 import com.medicinelocator.inventory.domain.model.Medicine;
-import com.medicinelocator.inventory.domain.model.MedicineCategoryDomain;
 import com.medicinelocator.inventory.domain.model.PharmacyInventory;
 import com.medicinelocator.inventory.infrastructure.security.CurrentUser;
 import com.medicinelocator.inventory.infrastructure.security.CurrentUserProvider;

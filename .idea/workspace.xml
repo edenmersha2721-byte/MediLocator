@@ -6,10 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="fa3d37d5-9c86-433d-8171-e62d2339e352" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/handler/LoginHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/handler/LoginHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/infrastructure/security/BCryptPasswordHasher.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/infrastructure/security/BCryptPasswordHasher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/presentation/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/presentation/controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/main/resources/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/InventoryServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/InventoryServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/domain/model/InventoryItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/domain/model/InventoryItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/domain/model/Medicine.java" beforeDir="false" afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/domain/model/Medicine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/domain/model/PharmacyInventory.java" beforeDir="false" afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/domain/model/PharmacyInventory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/inventory/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/inventory/src/main/resources/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/inventory/src/main/resources/schema.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
