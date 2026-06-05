@@ -33,17 +33,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-/**
- * Search Controller — pure read-only CQRS query side.
- *
- * Endpoints:
- *   GET  /api/v1/search                  → medicine search (name + optional geo)
- *   GET  /api/v1/search/nearby           → nearby pharmacy discovery
- *   POST /api/v1/search/prescription     → batch prescription medicine search
- *
- * This controller contains NO commands, NO mutations, NO state changes.
- * Identity is validated via gateway-forwarded headers.
- */
+
 @RestController
 @RequestMapping("/api/v1/search")
 @Validated
@@ -129,7 +119,14 @@ public class SearchController {
         request.setLat(lat);
         request.setLng(lng);
         request.setRadiusKm(radiusKm);
-        request.setRequiresPrescription(requiresPrescription);
+
+        // ─────────────────────────────────────────────────────────────────────────
+        // SECURITY WORKFLOW BLOCK:
+        // Force 'false' here so public string searches never discover
+        // items flagged by pharmacies as requiring a physical prescription.
+        // ─────────────────────────────────────────────────────────────────────────
+        request.setRequiresPrescription(false);
+
         request.setCategory(category);
         request.setPage(page);
         request.setSize(size);
