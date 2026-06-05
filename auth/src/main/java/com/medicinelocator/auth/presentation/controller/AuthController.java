@@ -14,6 +14,7 @@ import com.medicinelocator.auth.infrastructure.security.BCryptPasswordHasher;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -34,6 +35,7 @@ public class AuthController {
     private final AuthMapper authMapper;
     private final AdminService adminService;
     private final BCryptPasswordHasher bCryptPasswordHasher;
+    private final ApprovePharmacyHandler approvePharmacyHandler;
 
     public AuthController(RegisterCustomerHandler registerCustomerHandler,
                           RegisterPharmacyHandler registerPharmacyHandler,
@@ -45,7 +47,8 @@ public class AuthController {
                           GetCurrentUserHandler getCurrentUserHandler,
                           AuthMapper authMapper,
                           AdminService adminService,
-                          BCryptPasswordHasher bCryptPasswordHasher) {
+                          BCryptPasswordHasher bCryptPasswordHasher,
+                          ApprovePharmacyHandler approvePharmacyHandler) {
         this.registerCustomerHandler = registerCustomerHandler;
         this.registerPharmacyHandler = registerPharmacyHandler;
         this.loginHandler = loginHandler;
@@ -57,6 +60,7 @@ public class AuthController {
         this.authMapper = authMapper;
         this.adminService=adminService;
         this.bCryptPasswordHasher=bCryptPasswordHasher;
+        this.approvePharmacyHandler=approvePharmacyHandler;
     }
 
     @PostMapping("/register/customer")
@@ -135,5 +139,16 @@ public class AuthController {
         );
         UserProfileResponse response = getCurrentUserHandler.handle(query);
         return ResponseEntity.ok(response);
+    }
+    @PutMapping("/pharmacies/{pharmacyId}/approval")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> reviewPharmacyRegistration(
+            @PathVariable UUID pharmacyId,
+            @RequestParam boolean approve) {
+
+        ApprovePharmacyCommand command = new ApprovePharmacyCommand(pharmacyId, approve);
+        approvePharmacyHandler.handle(command);
+
+        return ResponseEntity.noContent().build();
     }
 }

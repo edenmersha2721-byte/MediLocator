@@ -8,4 +8,5 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableCaching
 @EnableAsync
 public class CacheConfig {
+
 }

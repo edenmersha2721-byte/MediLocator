@@ -50,7 +50,8 @@ public class PharmacyRepositoryImpl implements PharmacyService {
 
     private PharmacyEntity toEntity(Pharmacy pharmacy) {
         PharmacyEntity entity = new PharmacyEntity();
-//        entity.setId(pharmacy.getId());
+        // ✅ FIXED: ID is now explicitly mapped so Hibernate knows it's an existing record during save operations
+        entity.setId(pharmacy.getId());
         entity.setEmail(pharmacy.getEmail());
         entity.setPasswordHash(pharmacy.getPasswordHash());
         entity.setPharmacyName(pharmacy.getPharmacyName());

@@ -1,5 +1,5 @@
 # ===================================================================
-# PRODUCTION SETTINGS (Commented Out for Local Testing)
+# PRODUCTION SETTINGS (Kept Commented Out for Reference)
 # ===================================================================
 #server:
 #  port: 8083
@@ -30,21 +30,93 @@
 #        format_sql: true
 #        jdbc:
 #          batch_size: 50
+
+## ===================================================================
+## LOCAL TESTING SETTINGS (Active Configuration)
+## ===================================================================
+#server:
+#  port: 8083
+#
+#spring:
+#  application:
+#    name: search-location-service
+#
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/search_db
+#    username: postgres
+#    password: Edu27015
+#    driver-class-name: org.postgresql.Driver
+#    hikari:
+#      maximum-pool-size: 10
+#      minimum-idle: 5
+#      connection-timeout: 30000
+#      idle-timeout: 600000
+#      max-lifetime: 1800000
+#
+#  # Permanent Schema Initialization Configuration
+#  sql:
+#    init:
+#      mode: always
+#      schema-locations: classpath:schema.sql
+#      data-locations: classpath:data.sql
+#
+#  jpa:
+#    # Changed to update so Hibernate automatically handles the read-model table schema
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: true
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.spatial.dialect.postgis.PostgisPG10Dialect
+#        format_sql: true
+#        jdbc:
+#          batch_size: 50
 #
 #  data:
 #    redis:
-#      host: ${SPRING_REDIS_HOST:localhost}
-#      port: ${SPRING_REDIS_PORT:6379}
-#      password: ${SPRING_REDIS_PASSWORD:}
+#      host: localhost
+#      port: 6379
+#      password:
 #      timeout: 2000ms
 #      lettuce:
 #        pool:
 #          max-active: 10
 #          max-idle: 5
 #          min-idle: 2
-
+#
+## Core Custom Microservice Logic Settings
+#search:
+#  cache:
+#    medicine-search-ttl-seconds: 60
+#    nearby-search-ttl-seconds: 30
+#  defaults:
+#    radius-km: 10.0
+#    page-size: 20
+#    max-page-size: 100
+#
+#springdoc:
+#  api-docs:
+#    path: /api-docs
+#  swagger-ui:
+#    path: /swagger-ui.html
+#
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: health,info,metrics
+#  endpoint:
+#    health:
+#      show-details: always
+#
+#logging:
+#  level:
+#    com.medicinelocator.search: DEBUG
+#    org.hibernate.SQL: DEBUG
+#  pattern:
+#    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [%X{requestId}] %logger{36} - %msg%n"
 # ===================================================================
-# LOCAL TESTING SETTINGS (Active)
+# LOCAL TESTING SETTINGS (Active Configuration)
 # ===================================================================
 server:
   port: 8083
@@ -65,10 +137,19 @@ spring:
       idle-timeout: 600000
       max-lifetime: 1800000
 
+  # Initialization Sequence Management
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema.sql
+      data-locations: classpath:data.sql
+
   jpa:
+    # 🟢 CRITICAL: Force Spring to wait for Hibernate to create tables before running data.sql
+    defer-datasource-initialization: true
     hibernate:
-      ddl-auto: update  # Changed from validate to update for easy local setup
-    show-sql: true       # Turned on SQL logging so you can see what's happening
+      ddl-auto: update
+    show-sql: true
     properties:
       hibernate:
         dialect: org.hibernate.spatial.dialect.postgis.PostgisPG10Dialect
@@ -87,35 +168,3 @@ spring:
           max-active: 10
           max-idle: 5
           min-idle: 2
-
-# Core Custom Properties (Kept Active)
-search:
-  cache:
-    medicine-search-ttl-seconds: 60
-    nearby-search-ttl-seconds: 30
-  defaults:
-    radius-km: 10.0
-    page-size: 20
-    max-page-size: 100
-
-springdoc:
-  api-docs:
-    path: /api-docs
-  swagger-ui:
-    path: /swagger-ui.html
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,metrics
-  endpoint:
-    health:
-      show-details: always
-
-logging:
-  level:
-    com.medicinelocator.search: DEBUG
-    org.hibernate.SQL: DEBUG
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [%X{requestId}] %logger{36} - %msg%n"
