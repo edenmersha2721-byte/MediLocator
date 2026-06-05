@@ -5,17 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fa3d37d5-9c86-433d-8171-e62d2339e352" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/ApprovePharmacyCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/application/command/handler/ApprovePharmacyHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/search/src/main/resources/data.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/auth/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/infrastructure/config/CacheConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/infrastructure/config/CacheConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/infrastructure/persistence/repository/PharmacyRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/infrastructure/persistence/repository/PharmacyRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/presentation/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/auth/src/main/java/com/medicinelocator/auth/presentation/controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/presentation/controller/InventoryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/inventory/src/main/java/com/medicinelocator/inventory/presentation/controller/InventoryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/search/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/search/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/search/src/main/resources/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/search/src/main/resources/schema.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
