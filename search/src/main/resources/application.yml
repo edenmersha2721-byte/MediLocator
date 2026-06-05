@@ -1,3 +1,51 @@
+# ===================================================================
+# PRODUCTION SETTINGS (Commented Out for Local Testing)
+# ===================================================================
+#server:
+#  port: 8083
+#
+#spring:
+#  application:
+#    name: search-location-service
+#
+#  datasource:
+#    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/search_db}
+#    username: ${SPRING_DATASOURCE_USERNAME:medicine_user}
+#    password: ${SPRING_DATASOURCE_PASSWORD:medicine_pass}
+#    driver-class-name: org.postgresql.Driver
+#    hikari:
+#      maximum-pool-size: 15
+#      minimum-idle: 5
+#      connection-timeout: 30000
+#      idle-timeout: 600000
+#      max-lifetime: 1800000
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: validate
+#    show-sql: false
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.spatial.dialect.postgis.PostgisPG10Dialect
+#        format_sql: true
+#        jdbc:
+#          batch_size: 50
+#
+#  data:
+#    redis:
+#      host: ${SPRING_REDIS_HOST:localhost}
+#      port: ${SPRING_REDIS_PORT:6379}
+#      password: ${SPRING_REDIS_PASSWORD:}
+#      timeout: 2000ms
+#      lettuce:
+#        pool:
+#          max-active: 10
+#          max-idle: 5
+#          min-idle: 2
+
+# ===================================================================
+# LOCAL TESTING SETTINGS (Active)
+# ===================================================================
 server:
   port: 8083
 
@@ -6,12 +54,12 @@ spring:
     name: search-location-service
 
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/medicine_locator_db}
-    username: ${SPRING_DATASOURCE_USERNAME:medicine_user}
-    password: ${SPRING_DATASOURCE_PASSWORD:medicine_pass}
+    url: jdbc:postgresql://localhost:5432/search_db
+    username: postgres
+    password: Edu27015
     driver-class-name: org.postgresql.Driver
     hikari:
-      maximum-pool-size: 15
+      maximum-pool-size: 10
       minimum-idle: 5
       connection-timeout: 30000
       idle-timeout: 600000
@@ -19,8 +67,8 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: validate
-    show-sql: false
+      ddl-auto: update  # Changed from validate to update for easy local setup
+    show-sql: true       # Turned on SQL logging so you can see what's happening
     properties:
       hibernate:
         dialect: org.hibernate.spatial.dialect.postgis.PostgisPG10Dialect
@@ -30,9 +78,9 @@ spring:
 
   data:
     redis:
-      host: ${SPRING_REDIS_HOST:localhost}
-      port: ${SPRING_REDIS_PORT:6379}
-      password: ${SPRING_REDIS_PASSWORD:}
+      host: localhost
+      port: 6379
+      password:
       timeout: 2000ms
       lettuce:
         pool:
@@ -40,6 +88,7 @@ spring:
           max-idle: 5
           min-idle: 2
 
+# Core Custom Properties (Kept Active)
 search:
   cache:
     medicine-search-ttl-seconds: 60
@@ -62,11 +111,11 @@ management:
         include: health,info,metrics
   endpoint:
     health:
-      show-details: when-authorized
+      show-details: always
 
 logging:
   level:
     com.medicinelocator.search: DEBUG
-    org.hibernate.SQL: WARN
+    org.hibernate.SQL: DEBUG
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [%X{requestId}] %logger{36} - %msg%n"

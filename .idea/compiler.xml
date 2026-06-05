@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="auth-service" />
         <module name="search" />
+        <module name="search-location-service" />
         <module name="inventory-service" />
         <module name="auth" />
         <module name="api-gateway" />
@@ -25,6 +26,7 @@
       <module name="inventory" options="-parameters" />
       <module name="inventory-service" options="-parameters" />
       <module name="search" options="-parameters" />
+      <module name="search-location-service" options="-parameters" />
     </option>
   </component>
 </project>

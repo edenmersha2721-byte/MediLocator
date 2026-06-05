@@ -12,7 +12,7 @@ spring:
     # password: ${SPRING_DATASOURCE_PASSWORD:medicine_pass}
 
     # ✅ FIXED CONFIG (WORKING - matches your setup)
-    url: jdbc:postgresql://localhost:5432/auth-db
+    url: jdbc:postgresql://localhost:5432/auths_db
     username: postgres
     password: Edu27015
     driver-class-name: org.postgresql.Driver
