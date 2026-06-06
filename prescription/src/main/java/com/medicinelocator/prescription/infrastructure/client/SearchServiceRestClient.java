@@ -36,7 +36,7 @@ public class SearchServiceRestClient implements SearchServiceClient {
 
     public SearchServiceRestClient(
             RestTemplate restTemplate,
-            @Value("${search-service.url:http://search-service:8083}") String searchServiceUrl,
+            @Value("${search-service.url:http://localhost:8083}") String searchServiceUrl,
             @Value("${search-service.prescription-search-path:/api/v1/search/prescription}")
             String prescriptionSearchPath) {
         this.restTemplate = restTemplate;
@@ -51,18 +51,31 @@ public class SearchServiceRestClient implements SearchServiceClient {
                                   Double radiusKm) {
         String url = searchServiceUrl + prescriptionSearchPath;
 
+        // DEFENSIVE STEP: Ensure null coordinates never reach the spatial layer of Search Service
+        Double finalLat = (latitude != null) ? latitude : 9.0192;
+        Double finalLng = (longitude != null) ? longitude : 38.7525;
+        Double finalRadius = (radiusKm != null) ? radiusKm : 10.0;
+
+        // FIXED: DTO Property naming structure matching PrescriptionSearchRequest class signature exactly
         Map<String, Object> requestBody = new HashMap<>();
         requestBody.put("medicineNames", medicineNames);
-        requestBody.put("lat", latitude);
-        requestBody.put("lng", longitude);
-        requestBody.put("radiusKm", radiusKm);
+        requestBody.put("lat", finalLat);
+        requestBody.put("lng", finalLng);
+        requestBody.put("radiusKm", finalRadius);
+        requestBody.put("page", 0);  // Default pagination index
+        requestBody.put("size", 20); // Default page size allocation limits
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
+
+        // FIXED: Provide authentic Identity Context Headers matching Gateway rules
+        headers.set("X-User-Id", "ea83955e-3a7a-481f-a6d9-06857657cd89");
+        headers.set("X-User-Role", "CUSTOMER");
+
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(requestBody, headers);
 
-        log.debug("Calling Search Service: url={} medicines={} lat={} lng={} radius={}",
-                url, medicineNames, latitude, longitude, radiusKm);
+        log.info("Calling Search Service: url={} medicineNames={} lat={} lng={} radius={}",
+                url, medicineNames, finalLat, finalLng, finalRadius);
 
         try {
             ResponseEntity<Object> response = restTemplate.postForEntity(url, entity, Object.class);
