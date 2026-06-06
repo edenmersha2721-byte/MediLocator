@@ -1,0 +1,15 @@
+spring:
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+
+ocr:
+  provider: ${OCR_PROVIDER:google_vision}
+  mock:
+    enabled: false
+
+logging:
+  level:
+    com.medicinelocator.prescription: INFO
+    root: WARN
