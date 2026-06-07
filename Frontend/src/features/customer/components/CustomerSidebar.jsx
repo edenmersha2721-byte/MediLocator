@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import { toast } from "sonner";
 import {
   HomeIcon,
   SearchIcon,
@@ -8,8 +7,7 @@ import {
   UserIcon,
   SettingsIcon,
   HeartPulseIcon,
-  TruckIcon,
-  ArrowRightIcon,
+  LightbulbIcon,
 } from "lucide-react";
 import { PATHS } from "@/router/routes";
 import { cn } from "@/lib/utils";
@@ -86,20 +84,16 @@ export default function CustomerSidebar() {
         ))}
       </nav>
 
-      {/* Promo card */}
-      <div className="m-3 rounded-2xl border border-foreground/5 bg-gradient-to-br from-indigo-500/10 to-violet-500/10 p-4">
-        <div className="mb-2 flex size-9 items-center justify-center rounded-xl bg-white text-indigo-600 shadow-sm">
-          <TruckIcon className="size-5" />
+      {/* Health tip */}
+      <div className="m-3 rounded-2xl border border-foreground/5 bg-gradient-to-br from-cyan-500/10 to-emerald-500/10 p-4">
+        <div className="flex items-center gap-2 text-emerald-700">
+          <LightbulbIcon className="size-4" />
+          <span className="text-xs font-semibold uppercase tracking-wide">Health tip</span>
         </div>
-        <p className="text-sm font-semibold text-foreground">Medicine at your doorstep</p>
-        <p className="mt-0.5 text-xs text-muted-foreground">Coming soon to make life easier!</p>
-        <button
-          onClick={() => toast.success("Thanks! We'll notify you when delivery launches.")}
-          className="mt-3 inline-flex w-full items-center justify-between rounded-xl border border-foreground/10 bg-background px-3 py-2 text-sm font-medium transition-colors hover:border-indigo-500/40 hover:text-indigo-700"
-        >
-          Notify Me
-          <ArrowRightIcon className="size-4" />
-        </button>
+        <p className="mt-2 text-xs leading-relaxed text-muted-foreground">
+          Always check the expiry date and confirm the dosage with your pharmacist before taking
+          any medicine.
+        </p>
       </div>
     </aside>
   );
