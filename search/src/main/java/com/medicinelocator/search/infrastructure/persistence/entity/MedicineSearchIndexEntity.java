@@ -7,13 +7,14 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-/**
- * JPA entity mapping the medicine_search_index table.
- * The PostGIS location column is mapped as org.locationtech.jts.geom.Point
- * via Hibernate Spatial.
- */
 @Entity
-@Table(name = "medicine_search_index")
+@Table(
+        name = "medicine_search_index",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "uq_medicine_search_medicine_id",
+                        columnNames = {"medicine_id"})
+        }
+)
 public class MedicineSearchIndexEntity {
 
     @Id
@@ -72,10 +73,6 @@ public class MedicineSearchIndexEntity {
     @Column(name = "longitude", nullable = false)
     private double longitude;
 
-    /**
-     * PostGIS Geography(Point, 4326) — mapped via Hibernate Spatial.
-     * Stored as POINT(longitude latitude) — note longitude is FIRST in PostGIS WKT.
-     */
     @Column(name = "location", columnDefinition = "GEOGRAPHY(Point,4326)", nullable = false)
     private Point location;
 

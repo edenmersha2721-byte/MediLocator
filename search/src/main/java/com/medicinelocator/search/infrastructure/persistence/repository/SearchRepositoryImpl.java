@@ -96,8 +96,6 @@ public class SearchRepositoryImpl implements SearchService {
                 pageable, total);
     }
 
-    // ─── Row mappers ──────────────────────────────────────────────────────────
-
     private NearbyMedicineProjection mapToNearbyProjection(Object[] row) {
         return new NearbyMedicineProjection(
                 toUUID(row[0]),                      // medicine_id
@@ -153,7 +151,6 @@ public class SearchRepositoryImpl implements SearchService {
         );
     }
 
-    // ─── Type helpers ─────────────────────────────────────────────────────────
 
     private UUID toUUID(Object o) {
         if (o == null) return null;
