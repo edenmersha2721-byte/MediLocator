@@ -6,9 +6,11 @@ import { RootRedirect, PublicOnlyRoute } from "@/router/guards";
 import LoginPage from "@/features/auth/pages/LoginPage";
 import RegisterPage from "@/features/auth/pages/RegisterPage";
 import CustomerLayout from "@/features/customer/components/CustomerLayout";
+import CustomerDashboardPage from "@/features/customer/pages/CustomerDashboardPage";
 import MedicineSearchPage from "@/features/customer/pages/MedicineSearchPage";
 import PrescriptionsUploadPage from "@/features/customer/pages/PrescriptionsUploadPage";
 import PharmacyLayout from "@/features/pharmacy/components/PharmacyLayout";
+import PharmacyDashboardPage from "@/features/pharmacy/pages/PharmacyDashboardPage";
 import InventoryPage from "@/features/pharmacy/pages/InventoryPage";
 import AdminLayout from "@/features/admin/components/AdminLayout";
 import AdminDashboardPage from "@/features/admin/pages/AdminDashboardPage";
@@ -30,7 +32,8 @@ export const router = createBrowserRouter([
       {
         element: <CustomerLayout />,
         children: [
-          { path: PATHS.CUSTOMER_HOME, element: <MedicineSearchPage /> },
+          { path: PATHS.CUSTOMER_HOME, element: <CustomerDashboardPage /> },
+          { path: PATHS.CUSTOMER_SEARCH, element: <MedicineSearchPage /> },
           { path: PATHS.CUSTOMER_PRESCRIPTIONS, element: <PrescriptionsUploadPage /> },
         ],
       },
@@ -41,7 +44,10 @@ export const router = createBrowserRouter([
     children: [
       {
         element: <PharmacyLayout />,
-        children: [{ path: PATHS.PHARMACY_HOME, element: <InventoryPage /> }],
+        children: [
+          { path: PATHS.PHARMACY_HOME, element: <PharmacyDashboardPage /> },
+          { path: PATHS.PHARMACY_INVENTORY, element: <InventoryPage /> },
+        ],
       },
     ],
   },

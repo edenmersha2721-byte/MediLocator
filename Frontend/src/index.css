@@ -128,3 +128,39 @@
     @apply font-sans;
     }
 }
+
+/* ─── Customer module premium UI helpers ──────────────────────────────────── */
+
+/* Subtle dotted grid backdrop for hero sections, faded out toward edges. */
+.ml-grid-bg {
+  background-image: radial-gradient(
+    color-mix(in oklch, var(--foreground) 14%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, #000 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, #000 40%, transparent 100%);
+}
+
+/* Indigo→violet→cyan gradient text. */
+.ml-gradient-text {
+  background-image: linear-gradient(100deg, #4f46e5 0%, #7c3aed 45%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Soft animated glow used behind hero / search card. */
+.ml-glow {
+  background: radial-gradient(
+    60% 60% at 50% 0%,
+    color-mix(in oklch, #6366f1 35%, transparent) 0%,
+    transparent 70%
+  );
+}
+
+@keyframes ml-pulse-soft {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.04); }
+}
+.ml-pulse-soft { animation: ml-pulse-soft 2.4s ease-in-out infinite; }

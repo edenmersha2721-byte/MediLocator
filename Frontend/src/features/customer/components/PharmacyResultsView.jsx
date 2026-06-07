@@ -3,14 +3,14 @@ import MedicineResultCard from "@/features/customer/components/MedicineResultCar
 import PharmacyMap from "@/features/customer/components/PharmacyMap";
 
 /**
- * Shared results UI: a list of medicine-at-pharmacy cards alongside a Leaflet
- * map. Selecting a card flies the map to that pharmacy. Used by both the
- * medicine search page and the prescription upload flow.
+ * Shared results UI: a responsive GRID of medicine-at-pharmacy cards beside a
+ * sticky Leaflet map. Selecting a card flies the map to that pharmacy. Used by
+ * both the medicine search page and the prescription upload flow.
  *
  * @param results    NearbyMedicineResponse[] (medicine-per-pharmacy rows)
  * @param userCoords {lat,lng} | null
- * @param header     optional node rendered above the list (e.g. result count)
- * @param footer     optional node rendered below the list (e.g. "Load more")
+ * @param header     optional node rendered above the grid (e.g. result count)
+ * @param footer     optional node rendered below the grid (e.g. "Load more")
  */
 export default function PharmacyResultsView({ results, userCoords, header, footer }) {
   const [selectedId, setSelectedId] = useState(null);
@@ -30,22 +30,24 @@ export default function PharmacyResultsView({ results, userCoords, header, foote
   );
 
   return (
-    <div className="grid gap-6 lg:grid-cols-2">
-      <div className="flex flex-col gap-3">
+    <div className="grid gap-6 lg:grid-cols-[1fr_380px]">
+      <div className="order-2 flex flex-col gap-4 lg:order-1">
         {header}
-        {results.map((item) => (
-          <MedicineResultCard
-            key={`${item.medicineId}-${item.pharmacyId}`}
-            item={item}
-            userCoords={userCoords}
-            active={item.pharmacyId === selectedId}
-            onSelect={() => setSelectedId(item.pharmacyId)}
-          />
-        ))}
+        <div className="grid content-start gap-4 sm:grid-cols-2">
+          {results.map((item) => (
+            <MedicineResultCard
+              key={`${item.medicineId}-${item.pharmacyId}`}
+              item={item}
+              userCoords={userCoords}
+              active={item.pharmacyId === selectedId}
+              onSelect={() => setSelectedId(item.pharmacyId)}
+            />
+          ))}
+        </div>
         {footer}
       </div>
 
-      <div className="h-[60vh] overflow-hidden rounded-xl ring-1 ring-foreground/10 lg:sticky lg:top-20 lg:h-[calc(100vh-7rem)]">
+      <div className="order-1 h-72 overflow-hidden rounded-2xl border border-foreground/5 shadow-sm lg:order-2 lg:sticky lg:top-24 lg:h-[calc(100vh-8rem)]">
         <PharmacyMap userCoords={userCoords} pharmacies={pharmacies} selected={selected} />
       </div>
     </div>
