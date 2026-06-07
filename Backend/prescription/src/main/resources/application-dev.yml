@@ -1,0 +1,15 @@
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+
+ocr:
+  provider: mock
+  mock:
+    enabled: true
+
+logging:
+  level:
+    com.medicinelocator.prescription: DEBUG
+    org.springframework.web: DEBUG

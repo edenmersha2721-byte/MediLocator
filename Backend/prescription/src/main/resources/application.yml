@@ -1,0 +1,164 @@
+# ===================================================================
+# PRODUCTION READY (Environment Variables with Fallbacks)
+# ===================================================================
+#server:
+#  port: 8084
+#
+#spring:
+#  application:
+#    name: prescription-service
+#
+#  datasource:
+#    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/medicine_locator_db}
+#    username: ${SPRING_DATASOURCE_USERNAME:medicine_user}
+#    password: ${SPRING_DATASOURCE_PASSWORD:medicine_pass}
+#    driver-class-name: org.postgresql.Driver
+#    hikari:
+#      maximum-pool-size: 10
+#      minimum-idle: 5
+#      connection-timeout: 30000
+#      idle-timeout: 600000
+#      max-lifetime: 1800000
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: validate
+#    show-sql: false
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.PostgreSQLDialect
+#        format_sql: true
+#
+#  servlet:
+#    multipart:
+#      enabled: true
+#      max-file-size: ${MAX_FILE_SIZE:10MB}
+#      max-request-size: ${MAX_REQUEST_SIZE:11MB}
+#
+#prescription:
+#  storage:
+#    upload-dir: ${UPLOAD_DIR:./uploads/prescriptions}
+#  allowed-content-types:
+#    - image/jpeg
+#    - image/png
+#    - image/jpg
+#    - application/pdf
+#  max-file-size-bytes: ${MAX_FILE_SIZE_BYTES:10485760}
+#
+#ocr:
+#  provider: ${OCR_PROVIDER:google_vision}
+#  google:
+#    api-key: ${GOOGLE_VISION_API_KEY:mock-key-replace-me}
+#    endpoint: ${GOOGLE_VISION_ENDPOINT:https://vision.googleapis.com/v1/images:annotate}
+#  mock:
+#    enabled: ${OCR_MOCK_ENABLED:false}
+#
+#search-service:
+#  url: ${SEARCH_SERVICE_URL:http://search-service:8083}
+#  timeout-seconds: ${SEARCH_SERVICE_TIMEOUT_SECONDS:10}
+#  prescription-search-path: /api/v1/search/prescription
+#
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: health,info,metrics
+#  endpoint:
+#    health:
+#      show-details: when-authorized
+#
+#logging:
+#  level:
+#    com.medicinelocator.prescription: DEBUG
+#    org.hibernate.SQL: WARN
+#  pattern:
+#    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [%X{requestId}] [%X{prescriptionId}] [%X{customerId}] %logger{36} - %msg%n"
+
+
+# ===================================================================
+# LOCAL TESTING CONFIGURATION
+# ===================================================================
+server:
+  port: 8084
+
+spring:
+  application:
+    name: prescription-service
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/prescription_db}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:Edu27015}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  jpa:
+    hibernate:
+      ddl-auto: ${HIBERNATE_DDL_AUTO:update}
+    show-sql: ${SHOW_SQL:true}
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: ${MAX_FILE_SIZE:10MB}
+      max-request-size: ${MAX_REQUEST_SIZE:11MB}
+#
+#prescription:
+#  storage:
+#    upload-dir: ${UPLOAD_DIR:./uploads/prescriptions}
+#    allowed-content-types:
+#      - image/jpeg
+#      - image/png
+#      - image/jpg
+#      - application/pdf
+#    max-file-size-bytes: ${MAX_FILE_SIZE_BYTES:10485760}
+prescription:
+  storage:
+    upload-dir: ${UPLOAD_DIR:./uploads/prescriptions}
+    allowed-content-types:
+      - image/jpeg
+      - image/png
+      - image/jpg
+      - application/pdf
+    max-file-size-bytes: ${MAX_FILE_SIZE_BYTES:10485760}
+  ocr:
+    provider: mock
+#  ocr:
+#    provider: ${OCR_PROVIDER:google_vision}
+#
+## Consolidated all root-level ocr properties here safely
+#ocr:
+##  google:
+##    api-key: ${GOOGLE_VISION_API_KEY:AIzaSyAYCCG7iap3Fxvwlh6VqA-ErbiplNliMAQ}
+##    endpoint: ${GOOGLE_VISION_ENDPOINT:https://vision.googleapis.com/v1/images:annotate}
+#mock:
+#  enabled:true
+search-service:
+  url: ${SEARCH_SERVICE_URL:http://localhost:8083}
+  timeout-seconds: ${SEARCH_SERVICE_TIMEOUT_SECONDS:10}
+  prescription-search-path: /api/v1/search/prescription
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.medicinelocator.prescription: DEBUG
+    org.hibernate.SQL: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level [%X{requestId}] [%X{prescriptionId}] [%X{customerId}] %logger{36} - %msg%n"
