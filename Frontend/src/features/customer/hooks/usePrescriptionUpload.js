@@ -2,13 +2,7 @@ import { useCallback, useState } from "react";
 import * as prescriptionApi from "@/features/customer/api/prescriptionApi";
 import { extractApiError } from "@/lib/helpers/helpers";
 
-/**
- * Prescription upload state + API logic.
- *
- * status: "idle" | "uploading" | "done" | "error"
- * On success exposes `extractedMedicines` and `results` (the pharmacy rows
- * extracted from the response's pharmacyResults page).
- */
+
 export function usePrescriptionUpload() {
   const [status, setStatus] = useState("idle");
   const [progress, setProgress] = useState(0);

@@ -2,20 +2,11 @@ import { useMemo, useState } from "react";
 import MedicineResultCard from "@/features/customer/components/MedicineResultCard";
 import PharmacyMap from "@/features/customer/components/PharmacyMap";
 
-/**
- * Shared results UI: a responsive GRID of medicine-at-pharmacy cards beside a
- * sticky Leaflet map. Selecting a card flies the map to that pharmacy. Used by
- * both the medicine search page and the prescription upload flow.
- *
- * @param results    NearbyMedicineResponse[] (medicine-per-pharmacy rows)
- * @param userCoords {lat,lng} | null
- * @param header     optional node rendered above the grid (e.g. result count)
- * @param footer     optional node rendered below the grid (e.g. "Load more")
- */
+
 export default function PharmacyResultsView({ results, userCoords, header, footer }) {
   const [selectedId, setSelectedId] = useState(null);
 
-  // One marker per pharmacy (results are medicine-per-pharmacy rows).
+  
   const pharmacies = useMemo(() => {
     const byId = new Map();
     for (const r of results) {

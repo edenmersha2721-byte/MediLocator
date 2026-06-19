@@ -2,15 +2,7 @@ import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { roleHome } from "@/lib/auth/roles";
 
-/**
- * Route guard.
- * - While auth state is resolving, renders a lightweight loader.
- * - Unauthenticated users are sent to /login (original location preserved).
- * - When `allowedRoles` is set, users without a permitted role are redirected
- *   to their own role's home.
- *
- * Usage: <Route element={<ProtectedRoute allowedRoles={["ADMIN"]} />}> ... </Route>
- */
+
 export default function ProtectedRoute({ allowedRoles }) {
   const { status, isAuthenticated, user } = useAuth();
   const location = useLocation();

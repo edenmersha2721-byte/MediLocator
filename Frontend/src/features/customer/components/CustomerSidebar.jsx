@@ -12,8 +12,7 @@ import {
 import { PATHS } from "@/router/routes";
 import { cn } from "@/lib/utils";
 
-// Active items route to real features; "soon" items are shown (to mirror the
-// product vision) but disabled — no backend exists for them yet.
+
 const NAV = [
   { to: PATHS.CUSTOMER_HOME, label: "Home", icon: HomeIcon, end: true },
   { to: PATHS.CUSTOMER_SEARCH, label: "Search Medicine", icon: SearchIcon },

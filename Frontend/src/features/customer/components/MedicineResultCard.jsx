@@ -9,10 +9,7 @@ function stockTone(item) {
   return { dot: "bg-emerald-500", text: "text-emerald-600", label: `In stock · ${item.stockQuantity}`, bg: "bg-emerald-500/10" };
 }
 
-/**
- * Premium grid card for a medicine-at-pharmacy result.
- * Clicking selects it (the map flies to the pharmacy).
- */
+
 export default function MedicineResultCard({ item, userCoords, active, onSelect }) {
   const price = item.price != null ? `ETB ${Number(item.price).toFixed(2)}` : "—";
   const stock = stockTone(item);

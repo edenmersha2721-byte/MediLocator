@@ -35,6 +35,32 @@ export function formatDistance(meters) {
   return `${(meters / 1000).toFixed(1)} km`;
 }
 
+/** Formats an ISO date/datetime as "Jun 20, 2026", or "—" if absent/invalid. */
+export function formatDate(iso) {
+  if (!iso) return "—";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "—";
+  return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "numeric" });
+}
+
+/** Relative time like "2h ago" from an ISO date, or "" if absent/invalid. */
+export function timeAgo(iso) {
+  if (!iso) return "";
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return "";
+  const s = Math.floor((Date.now() - d.getTime()) / 1000);
+  if (s < 60) return "just now";
+  const m = Math.floor(s / 60);
+  if (m < 60) return `${m}m ago`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `${h}h ago`;
+  const days = Math.floor(h / 24);
+  if (days < 30) return `${days}d ago`;
+  const mo = Math.floor(days / 30);
+  if (mo < 12) return `${mo}mo ago`;
+  return `${Math.floor(mo / 12)}y ago`;
+}
+
 /** Google Maps directions deep-link to a destination (optionally from an origin). */
 export function googleMapsDirectionsUrl(destLat, destLng, originLat, originLng) {
   const base = "https://www.google.com/maps/dir/?api=1";

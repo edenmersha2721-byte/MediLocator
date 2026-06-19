@@ -4,8 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import FormField from "@/features/auth/components/FormField";
 import { useAuth } from "@/features/auth/hooks/useAuth";
-import { roleHome, ROLES } from "@/lib/auth/roles";
-import { devLoginAs } from "@/lib/auth/devLogin";
+import { roleHome } from "@/lib/auth/roles";
 import { extractApiError } from "@/lib/helpers/helpers";
 import { validateEmail, validatePassword, collectErrors } from "@/lib/helpers/validators";
 
@@ -97,25 +96,6 @@ export default function LoginPage() {
               Create one
             </Link>
           </p>
-
-          {import.meta.env.DEV && (
-            <div className="mt-6 border-t pt-4">
-              <p className="mb-2 text-center text-xs font-medium text-muted-foreground">
-                Dev preview (no backend) — enter as:
-              </p>
-              <div className="grid grid-cols-3 gap-2">
-                <Button variant="outline" size="sm" onClick={() => devLoginAs(ROLES.CUSTOMER)}>
-                  Customer
-                </Button>
-                <Button variant="outline" size="sm" onClick={() => devLoginAs(ROLES.PHARMACY)}>
-                  Pharmacy
-                </Button>
-                <Button variant="outline" size="sm" onClick={() => devLoginAs(ROLES.ADMIN)}>
-                  Admin
-                </Button>
-              </div>
-            </div>
-          )}
         </CardContent>
       </Card>
     </div>

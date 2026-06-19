@@ -14,7 +14,7 @@ function Stat({ label, value, danger }) {
   );
 }
 
-/** Fancy medicine card backed by real inventory data, with an edit/delete menu. */
+
 export default function MedicineCard({ medicine: m, onEdit, onDelete }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const status = getStockStatus(m.stockQuantity);

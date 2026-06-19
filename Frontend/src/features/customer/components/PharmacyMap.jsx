@@ -9,7 +9,7 @@ import { medicineStockStatus } from "@/features/customer/stock";
 
 const ADDIS_ABABA = { lat: 8.9806, lng: 38.7578 }; // sensible default center
 
-// Colored teardrop pin, tinted by stock status.
+
 const pinCache = {};
 function pinIcon(hex) {
   if (pinCache[hex]) return pinCache[hex];

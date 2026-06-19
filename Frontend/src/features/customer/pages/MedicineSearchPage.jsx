@@ -79,12 +79,16 @@ export default function MedicineSearchPage() {
     [pharmacies, selectedId]
   );
 
-  const runSearch = (q) => {
+  // On search we auto-capture location (best-effort): reuse coords we already
+  // have, otherwise prompt once. The user's only explicit choice is the radius.
+  // If location is denied, we still search (just without distance/radius).
+  const runSearch = async (q) => {
+    const coords = geo.coords ?? (await geo.request());
     search({
       query: q,
-      lat: geo.coords?.lat,
-      lng: geo.coords?.lng,
-      radiusKm: geo.coords ? radiusKm : undefined,
+      lat: coords?.lat,
+      lng: coords?.lng,
+      radiusKm: coords ? radiusKm : undefined,
       size: 20,
     });
   };
@@ -139,42 +143,31 @@ export default function MedicineSearchPage() {
         </div>
         <button
           type="submit"
-          disabled={loading}
+          disabled={loading || geo.loading}
           className="inline-flex h-12 items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 px-6 font-medium text-white shadow-lg shadow-indigo-600/25 transition-all hover:from-indigo-500 hover:to-violet-500 active:scale-[0.98] disabled:opacity-60"
         >
-          {loading ? <LoaderIcon className="size-5 animate-spin" /> : "Search"}
+          {(geo.loading || loading) && <LoaderIcon className="size-5 animate-spin" />}
+          {geo.loading ? "Locating…" : loading ? "Searching…" : "Search"}
         </button>
       </form>
 
-      {/* Filter row */}
+      {/* Filter row — distance is the user's choice; location is automatic on search */}
       <div className="flex flex-wrap items-center gap-2">
-        {geo.coords ? (
-          <span className="inline-flex h-9 items-center gap-1.5 rounded-full border border-foreground/10 bg-background pl-3 pr-2 text-sm font-medium">
-            <MapPinIcon className="size-4 text-indigo-600" />
-            Within
-            <select
-              value={radiusKm}
-              onChange={(e) => setRadiusKm(Number(e.target.value))}
-              className="cursor-pointer bg-transparent outline-none"
-            >
-              {RADIUS_OPTIONS.map((r) => (
-                <option key={r} value={r}>
-                  {r} km
-                </option>
-              ))}
-            </select>
-          </span>
-        ) : (
-          <button
-            type="button"
-            onClick={geo.request}
-            disabled={geo.loading}
-            className="inline-flex h-9 items-center gap-1.5 rounded-full border border-foreground/10 bg-background px-3 text-sm font-medium transition-colors hover:border-indigo-500/40 hover:text-indigo-700"
+        <span className="inline-flex h-9 items-center gap-1.5 rounded-full border border-foreground/10 bg-background pl-3 pr-2 text-sm font-medium">
+          <MapPinIcon className="size-4 text-indigo-600" />
+          Within
+          <select
+            value={radiusKm}
+            onChange={(e) => setRadiusKm(Number(e.target.value))}
+            className="cursor-pointer bg-transparent outline-none"
           >
-            {geo.loading ? <LoaderIcon className="size-4 animate-spin" /> : <CrosshairIcon className="size-4" />}
-            {geo.loading ? "Locating…" : "Detect location"}
-          </button>
-        )}
+            {RADIUS_OPTIONS.map((r) => (
+              <option key={r} value={r}>
+                {r} km
+              </option>
+            ))}
+          </select>
+        </span>
 
         <span className="inline-flex h-9 items-center gap-1.5 rounded-full border border-foreground/10 bg-muted/40 px-3 text-sm font-medium text-muted-foreground">
           <NavigationIcon className="size-4 text-indigo-600" />
@@ -188,6 +181,32 @@ export default function MedicineSearchPage() {
             </option>
           ))}
         </select>
+
+        {/* Location status (captured automatically when you search) */}
+        {geo.coords ? (
+          <span className="inline-flex h-9 items-center gap-1.5 rounded-full bg-emerald-500/10 px-3 text-sm font-medium text-emerald-700">
+            <span className="size-1.5 rounded-full bg-emerald-500" />
+            Using your location
+          </span>
+        ) : geo.loading ? (
+          <span className="inline-flex h-9 items-center gap-1.5 rounded-full border border-foreground/10 px-3 text-sm text-muted-foreground">
+            <LoaderIcon className="size-4 animate-spin" />
+            Locating…
+          </span>
+        ) : hasSearched ? (
+          <button
+            type="button"
+            onClick={geo.request}
+            className="inline-flex h-9 items-center gap-1.5 rounded-full border border-foreground/10 px-3 text-sm font-medium text-muted-foreground transition-colors hover:border-indigo-500/40 hover:text-indigo-700"
+          >
+            <CrosshairIcon className="size-4" />
+            Location off · enable
+          </button>
+        ) : (
+          <span className="hidden text-xs text-muted-foreground sm:inline">
+            We&apos;ll use your location when you search.
+          </span>
+        )}
       </div>
 
       {/* States */}
@@ -234,8 +253,9 @@ export default function MedicineSearchPage() {
                 <PharmacyListItem
                   key={`${item.medicineId}-${item.pharmacyId}`}
                   item={item}
+                  userCoords={geo.coords}
                   active={item.pharmacyId === (selected?.pharmacyId ?? null)}
-                  nearest={i === 0 && item.distanceMeters != null}
+                  nearest={i === 0 && !!geo.coords && item.distanceMeters != null}
                   onSelect={() => setSelectedId(item.pharmacyId)}
                 />
               ))}
@@ -285,7 +305,9 @@ export default function MedicineSearchPage() {
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-semibold text-foreground">{selected.pharmacyName}</p>
                       <p className="text-xs text-muted-foreground">
-                        {selected.distanceMeters != null ? `${formatDistance(selected.distanceMeters)} away · ` : ""}
+                        {geo.coords && selected.distanceMeters != null
+                          ? `${formatDistance(selected.distanceMeters)} away · `
+                          : ""}
                         Tap for directions
                       </p>
                     </div>

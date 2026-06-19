@@ -3,7 +3,7 @@ export const PATHS = {
   ROOT: "/",
   LOGIN: "/login",
   REGISTER: "/register",
-  // Role landing pages (filled in by later feature modules).
+  
   CUSTOMER_HOME: "/dashboard",
   CUSTOMER_SEARCH: "/search",
   CUSTOMER_PRESCRIPTIONS: "/prescriptions",

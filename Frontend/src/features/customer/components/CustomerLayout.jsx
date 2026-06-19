@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, Outlet, useLocation } from "react-router-dom";
 import { toast } from "sonner";
 import {
@@ -6,16 +6,12 @@ import {
   HomeIcon,
   SearchIcon,
   FileTextIcon,
-  MapPinIcon,
   BellIcon,
   ChevronDownIcon,
   LogOutIcon,
   UserIcon,
-  CrosshairIcon,
-  LoaderIcon,
 } from "lucide-react";
 import { useAuth } from "@/features/auth/hooks/useAuth";
-import { useGeolocation } from "@/features/customer/hooks/useGeolocation";
 import { PATHS } from "@/router/routes";
 import { cn } from "@/lib/utils";
 import CustomerSidebar from "@/features/customer/components/CustomerSidebar";
@@ -93,19 +89,6 @@ function AvatarMenu({ user, onLogout }) {
 export default function CustomerLayout() {
   const { user, logout } = useAuth();
   const location = useLocation();
-  const geo = useGeolocation();
-  const locRef = useRef(false);
-
-  // Toast geolocation feedback from the top-bar control.
-  useEffect(() => {
-    if (geo.error) toast.error(geo.error);
-  }, [geo.error]);
-  useEffect(() => {
-    if (geo.coords && !locRef.current) {
-      locRef.current = true;
-      toast.success("Location detected");
-    }
-  }, [geo.coords]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-muted/30 via-background to-background">
@@ -115,37 +98,14 @@ export default function CustomerLayout() {
         {/* Top bar */}
         <header className="sticky top-0 z-30 border-b border-foreground/5 bg-background/70 backdrop-blur-xl">
           <div className="flex items-center justify-between gap-3 px-4 py-3 sm:px-6">
-            <div className="flex items-center gap-2">
-              {/* Mobile brand */}
-              <span className="flex items-center gap-2 lg:hidden">
-                <span className="flex size-8 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white">
-                  <HeartPulseIcon className="size-4" />
-                </span>
+            {/* Mobile brand */}
+            <span className="flex items-center gap-2 lg:hidden">
+              <span className="flex size-8 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white">
+                <HeartPulseIcon className="size-4" />
               </span>
-              {/* Location chip */}
-              <button
-                onClick={geo.request}
-                disabled={geo.loading}
-                className={cn(
-                  "inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-medium transition-all",
-                  geo.coords
-                    ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-700"
-                    : "border-foreground/10 bg-background hover:border-indigo-500/40 hover:text-indigo-700"
-                )}
-              >
-                {geo.loading ? (
-                  <LoaderIcon className="size-4 animate-spin" />
-                ) : geo.coords ? (
-                  <span className="ml-pulse-soft size-2 rounded-full bg-emerald-500" />
-                ) : (
-                  <MapPinIcon className="size-4 text-indigo-600" />
-                )}
-                <span className="max-w-[10rem] truncate">
-                  {geo.loading ? "Locating…" : geo.coords ? "Location detected" : "Detect location"}
-                </span>
-                {!geo.coords && !geo.loading && <CrosshairIcon className="size-3.5 opacity-60" />}
-              </button>
-            </div>
+              <span className="font-heading text-sm font-semibold">Medicine Locator</span>
+            </span>
+            <div className="hidden lg:block" />
 
             <div className="flex items-center gap-2 sm:gap-3">
               <button

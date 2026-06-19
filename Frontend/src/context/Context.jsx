@@ -10,13 +10,7 @@ import {
   isTokenExpired,
 } from "@/lib/auth/tokenStorage";
 
-/**
- * AuthProvider — owns auth state and exposes auth actions.
- *
- * On mount it restores the session from stored tokens (refreshing a stale
- * access token when a refresh token is available). The authenticated user is
- * derived from the JWT (sub/email/role) since the login response omits the id.
- */
+
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [status, setStatus] = useState("loading");
@@ -58,7 +52,7 @@ export function AuthProvider({ children }) {
           if (active) applyTokens(data);
           return;
         } catch {
-          /* fall through to clear */
+         
         }
       }
       if (active) clearSession();
@@ -72,7 +66,7 @@ export function AuthProvider({ children }) {
   const login = useCallback(
     async (credentials) => {
       const data = await authApi.login(credentials);
-      return applyTokens(data); // returns decoded user (with role) for redirect
+      return applyTokens(data); 
     },
     [applyTokens]
   );
@@ -82,14 +76,13 @@ export function AuthProvider({ children }) {
     try {
       await authApi.logout(refresh);
     } catch {
-      /* best-effort; clear locally regardless */
+
     } finally {
       clearSession();
     }
   }, [clearSession]);
 
-  // Registration does NOT log the user in: customers must verify email and
-  // pharmacies additionally require admin approval before they can log in.
+ 
   const registerCustomer = useCallback((payload) => authApi.registerCustomer(payload), []);
   const registerPharmacy = useCallback((payload) => authApi.registerPharmacy(payload), []);
 

@@ -1,10 +1,4 @@
-/**
- * Stock status for a customer-facing medicine result (NearbyMedicineResponse).
- * Returns colour tokens for badges (Tailwind), map pins (hex), and dots.
- *
- * Note: the public search backend only returns available, in-stock items, so
- * "low" is the main non-green case you'll see in practice.
- */
+
 export function medicineStockStatus(item) {
   const inStock = item?.available && item?.stockQuantity > 0;
   if (!inStock) {

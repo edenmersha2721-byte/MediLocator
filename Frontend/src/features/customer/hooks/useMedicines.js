@@ -4,10 +4,7 @@ import { extractApiError } from "@/lib/helpers/helpers";
 
 const EMPTY_META = { page: 0, totalPages: 0, totalElements: 0, last: true };
 
-/**
- * Medicine search state + API logic.
- * Exposes search() (resets to page 0) and loadMore() (appends next page).
- */
+
 export function useMedicines() {
   const [results, setResults] = useState([]);
   const [meta, setMeta] = useState(EMPTY_META);

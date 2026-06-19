@@ -74,7 +74,7 @@ function QuickAction({ icon: Icon, label, onClick }) {
 
 export default function PharmacyDashboardPage() {
   const { user } = useAuth();
-  // Larger page so stats + recent grid reflect the catalogue (capped at 100).
+  
   const { items, meta, loading, error, create, update, remove } = useInventory({ pageSize: 100 });
 
   const [editing, setEditing] = useState(null); // null | { medicine|null }

@@ -3,14 +3,14 @@ import { PATHS } from "@/router/routes";
 import { useAuth } from "@/features/auth/hooks/useAuth";
 import { roleHome } from "@/lib/auth/roles";
 
-/** Sends authenticated users straight to their role home; others to /login. */
+
 export function RootRedirect() {
   const { status, isAuthenticated, user } = useAuth();
   if (status === "loading") return null;
   return <Navigate to={isAuthenticated ? roleHome(user?.role) : PATHS.LOGIN} replace />;
 }
 
-/** Wraps public auth pages: redirects already-authenticated users to their home. */
+
 export function PublicOnlyRoute() {
   const { status, isAuthenticated, user } = useAuth();
   if (status === "loading") return null;

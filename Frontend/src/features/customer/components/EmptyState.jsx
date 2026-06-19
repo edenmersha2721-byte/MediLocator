@@ -1,9 +1,6 @@
 import { cn } from "@/lib/utils";
 
-/**
- * Premium empty/placeholder state with an icon medallion, title and subtitle.
- * @param icon  a lucide icon component
- */
+
 export default function EmptyState({ icon: Icon, title, subtitle, className }) {
   return (
     <div

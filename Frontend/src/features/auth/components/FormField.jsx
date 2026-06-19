@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
-/** Labeled input with inline validation error, used across the auth forms. */
+
 export default function FormField({
   id,
   label,

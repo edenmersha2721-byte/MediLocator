@@ -4,7 +4,7 @@ import { extractApiError } from "@/lib/helpers/helpers";
 
 const PAGE_SIZE = 20;
 
-/** Read-only list of platform users (paginated). */
+
 export function useUsers() {
   const [items, setItems] = useState([]);
   const [page, setPage] = useState(0);
@@ -20,7 +20,7 @@ export function useUsers() {
       try {
         const data = await adminApi.getUsers({ page, size: PAGE_SIZE });
         if (!active) return;
-        setItems(data.items);
+        setItems(data.content ?? []);
         setMeta({ totalElements: data.totalElements, totalPages: data.totalPages });
       } catch (e) {
         if (active) {

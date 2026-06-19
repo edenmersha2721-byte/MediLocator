@@ -5,14 +5,7 @@ import { extractApiError } from "@/lib/helpers/helpers";
 
 const DEFAULT_PAGE_SIZE = 20;
 
-/**
- * Pharmacy inventory state + CRUD logic.
- * pharmacyId is the logged-in user's id. The list is fetched in an effect keyed
- * by page + a reload counter; mutations bump that counter to refetch. CRUD
- * actions reject on failure so callers (the form dialog) can surface the error.
- *
- * @param pageSize results per page (dashboard uses a larger page for stats)
- */
+
 export function useInventory({ pageSize = DEFAULT_PAGE_SIZE } = {}) {
   const { user } = useAuth();
   const pharmacyId = user?.userId;

@@ -4,13 +4,10 @@ import { extractApiError } from "@/lib/helpers/helpers";
 
 const PAGE_SIZE = 20;
 
-/**
- * Pending-pharmacy approvals state.
- * Fetches in an effect keyed by page + reload counter; approve/reject reject on
- * failure so the page can surface a per-row error.
- */
-export function usePharmacies() {
+
+export function usePharmacies({ initialStatus = "PENDING" } = {}) {
   const [items, setItems] = useState([]);
+  const [status, setStatus] = useState(initialStatus);
   const [page, setPage] = useState(0);
   const [meta, setMeta] = useState({ totalElements: 0, totalPages: 0 });
   const [loading, setLoading] = useState(false);
@@ -19,30 +16,36 @@ export function usePharmacies() {
 
   useEffect(() => {
     let active = true;
-    async function fetchPending() {
+    async function fetchPharmacies() {
       setLoading(true);
       setError("");
       try {
-        const data = await adminApi.getPendingPharmacies({ page, size: PAGE_SIZE });
+        const data = await adminApi.getPharmacies({ status, page, size: PAGE_SIZE });
         if (!active) return;
-        setItems(data.items);
+        setItems(data.content ?? []);
         setMeta({ totalElements: data.totalElements, totalPages: data.totalPages });
       } catch (e) {
         if (active) {
-          setError(extractApiError(e, "Could not load pending pharmacies."));
+          setError(extractApiError(e, "Could not load pharmacies."));
           setItems([]);
         }
       } finally {
         if (active) setLoading(false);
       }
     }
-    fetchPending();
+    fetchPharmacies();
     return () => {
       active = false;
     };
-  }, [page, reloadKey]);
+  }, [status, page, reloadKey]);
 
   const reload = useCallback(() => setReloadKey((k) => k + 1), []);
+
+
+  const changeStatus = useCallback((next) => {
+    setStatus(next);
+    setPage(0);
+  }, []);
 
   const approve = useCallback(
     async (id) => {
@@ -60,7 +63,7 @@ export function usePharmacies() {
     [reload]
   );
 
-  return { items, page, setPage, meta, loading, error, approve, reject, reload };
+  return { items, status, changeStatus, page, setPage, meta, loading, error, approve, reject, reload };
 }
 
 export default usePharmacies;

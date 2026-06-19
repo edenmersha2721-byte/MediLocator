@@ -1,8 +1,3 @@
-/**
- * Suggested medicine categories (mirrors the backend MedicineCategory enum).
- * The backend stores category as free text, so these are suggestions only.
- */
-/** Stock status (label + colour tokens) shared across the pharmacy UI. */
 export function getStockStatus(stock) {
   if (!stock || stock <= 0)
     return { key: "out", label: "Out of Stock", dot: "bg-rose-500", text: "text-rose-600", bg: "bg-rose-500/10" };

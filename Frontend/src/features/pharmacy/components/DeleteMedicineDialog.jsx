@@ -10,10 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { extractApiError } from "@/lib/helpers/helpers";
 
-/**
- * Confirmation for deleting a medicine.
- * @param onConfirm () => Promise — resolves on success, rejects with API error
- */
+
 export default function DeleteMedicineDialog({ medicine, onConfirm, onClose }) {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");

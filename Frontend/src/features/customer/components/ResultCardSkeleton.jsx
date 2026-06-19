@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-/** Placeholder card shown while results load. */
+
 export default function ResultCardSkeleton() {
   return (
     <div className="flex flex-col gap-4 rounded-2xl border border-foreground/5 bg-card p-5">
